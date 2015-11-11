@@ -28,11 +28,21 @@ import com.eliteams.quick4j.web.service.UserService;
  * @since 2014年5月28日 下午3:54:00
  **/
 @Controller
-@RequestMapping(value = "/user")
 public class UserController {
 
     @Resource
     private UserService userService;
+    
+    
+    @RequestMapping(value="index",method=RequestMethod.GET)
+    public String index(){
+    	return "index";
+    }
+    
+    @RequestMapping(value="login",method=RequestMethod.GET)
+    public String login(){
+    	return "login";
+    }
 
     /**
      * 用户登录
@@ -41,13 +51,15 @@ public class UserController {
      * @param result
      * @return
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(@Valid User user, BindingResult result, Model model, HttpServletRequest request) {
+    	
+    	System.out.println(user.toString());
         try {
             Subject subject = SecurityUtils.getSubject();
             // 已登陆则 跳到首页
             if (subject.isAuthenticated()) {
-                return "redirect:/";
+                return "redirect:/index";
             }
             if (result.hasErrors()) {
                 model.addAttribute("error", "参数错误！");
@@ -63,7 +75,7 @@ public class UserController {
             model.addAttribute("error", "用户名或密码错误 ！");
             return "login";
         }
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     /**

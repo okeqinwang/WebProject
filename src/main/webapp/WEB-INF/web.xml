@@ -80,26 +80,37 @@
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <!-- 拦截所有/rest/* 的请求,交给DispatcherServlet处理,性能最好 -->
-        <url-pattern>/rest/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+
+    <!-- sitemesh filter-->
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!-- 首页 -->
     <welcome-file-list>
-        <welcome-file>rest/index</welcome-file>
+        <welcome-file>/index</welcome-file>
     </welcome-file-list>
 
     <!-- 错误页 -->
     <error-page>
         <error-code>404</error-code>
-        <location>/rest/page/404</location>
+        <location>/404</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/rest/page/500</location>
+        <location>/500</location>
     </error-page>
     <error-page>
         <exception-type>org.apache.shiro.authz.AuthorizationException</exception-type>
-        <location>/rest/page/401</location>
+        <location>/401</location>
     </error-page>
 
 </web-app>

@@ -68,6 +68,7 @@ public class SecurityRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = String.valueOf(token.getPrincipal());
         String password = new String((char[]) token.getCredentials());
+        
         // 通过数据库进行验证
         final User authentication = userService.authentication(new User(username, password));
         if (authentication == null) {
@@ -76,5 +77,8 @@ public class SecurityRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, getName());
         return authenticationInfo;
     }
+    
+    
+    
 
 }

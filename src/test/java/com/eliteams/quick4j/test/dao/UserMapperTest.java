@@ -26,4 +26,13 @@ public class UserMapperTest extends TestSupport {
         }
         end();
     }
+    
+    @Test
+    public void test_insertUser(){
+    	User u = new User();
+    	u.setUsername("admin");
+    	u.setPassword("admin");
+    	userMapper.insert(u);
+    	
+    }
 }

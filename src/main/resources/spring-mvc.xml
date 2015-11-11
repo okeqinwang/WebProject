@@ -19,6 +19,8 @@
     <!-- 指定自己定义的validator -->
     <mvc:annotation-driven validator="validator"/>
 
+	<mvc:resources mapping="assets/**" location="/assets/" />
+	
     <!-- 以下 validator ConversionService 在使用 mvc:annotation-driven 会 自动注册 -->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
