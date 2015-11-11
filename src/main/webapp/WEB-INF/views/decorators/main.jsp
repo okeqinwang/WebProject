@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Amaze UI Admin index Examples</title>
+  <title>Fuck so many pages</title>
   <meta name="description" content="这是一个 index 页面">
   <meta name="keywords" content="index">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -24,7 +24,7 @@
 </head>
 
 
-<body>
+<body onload="init()">
 	<div class="container">
 	     <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
@@ -66,5 +66,7 @@
   <!-- sidebar end -->
 		<decorator:body />
 	</div>
+	
+	
 </body>
 </html>

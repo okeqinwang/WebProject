@@ -3,10 +3,10 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-HttpSession s = request.getSession();  
 %>
 
-<body>
+
+<body >
 
 <div class="am-cf admin-main">
  
@@ -20,7 +20,7 @@ HttpSession s = request.getSession();
         <hr/>
         
     <div class="am-u-sm-12 am-u-md-8 ">
-        <form class="am-form am-form-horizontal"  action="admin-area" method="get">
+        <form class="am-form am-form-horizontal"  action="index" method="post">
           <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">案例名称</label>
             <div class="am-u-sm-9">
@@ -30,12 +30,12 @@ HttpSession s = request.getSession();
          
          
           <div class="am-form-group">
-            <label for="user-name" class="am-u-sm-3 am-form-label">案例名称</label>
+            <label for="user-name" class="am-u-sm-3 am-form-label">案例类别</label>
             <div class="am-u-sm-9">
-              <select  class="am-u-sm-2 " data-am-selected="{btnSize: 'sm'}">
-                  <option value="option1">区域一</option>
-                  <option value="option2">选项二</option>
-                  <option value="option3">选项三</option>
+              <select  id="sel" class="am-u-sm-2 "  name="basic_casetype"  >
+                  <option value="1">区域一</option>
+                  <option value="2">选项二</option>
+                  <option value="3">选项三</option>
             </select>
             </div>
          </div>
@@ -52,12 +52,12 @@ HttpSession s = request.getSession();
           <div class="am-form-group">
             <label for="user-intro" class="am-u-sm-3 am-form-label">案例说明</label>
             <div class="am-u-sm-9">
-              <textarea class="" rows="5" id="user-intro"  name="basic_content"  placeholder="输入案例说明"></textarea>
+              <textarea class="" rows="5" id="content"  name="basic_content"  placeholder="输入案例说明"></textarea>
             </div>
           </div>
 
           <div class="am-form-group">
-            <div class="am-u-sm-9 am-u-sm-push-3"> session   value  :  <%s.getAttribute("user");%> dgd
+            <div class="am-u-sm-9 am-u-sm-push-3"> 
               <button type="submit" class="am-btn am-btn-primary">下一步</button>
             </div>
           </div>
@@ -90,5 +90,15 @@ HttpSession s = request.getSession();
 <!--<![endif]-->
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
+<script type="text/javascript">
+function init(){
+	var option = ${m.basic_casetype};
+	$("#sel").val(option);
+	var content = ${m.basic_content};
+	$("#content").val(content);
+	console.log(content);
+}
+</script>
+
 </body>
 </html>

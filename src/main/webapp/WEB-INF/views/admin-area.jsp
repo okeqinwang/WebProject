@@ -98,5 +98,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <script src="assets/js/amazeui.min.js"></script>
 
 <script src="assets/js/app.js"></script>
+
+<script type="text/javascript">
+function init(){
+}
+</script>
 </body>
 </html>
