@@ -3,6 +3,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+HttpSession s = request.getSession();  
 %>
 
 <body>
@@ -19,11 +20,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <hr/>
         
     <div class="am-u-sm-12 am-u-md-8 ">
-        <form class="am-form am-form-horizontal">
+        <form class="am-form am-form-horizontal"  action="admin-area" method="get">
           <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">案例名称</label>
             <div class="am-u-sm-9">
-              <input type="text" id="user-name"  name="basic_casename"    placeholder="案例名称">
+              <input type="text" id="user-name"    value= "${m.basic_casename }"  name="basic_casename"  >
             </div>
          </div>
          
@@ -44,23 +45,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">创建人</label>
             <div class="am-u-sm-9">
-              <input type="email" id="user-phone" name="basic_createname" placeholder="创建人">
+              <input type="text" id="user-phone" name="basic_createname"   value="${m.basic_createname}" placeholder="创建人">
             </div>
           </div>
-
-         
-
 
           <div class="am-form-group">
             <label for="user-intro" class="am-u-sm-3 am-form-label">案例说明</label>
             <div class="am-u-sm-9">
-              <textarea class="" rows="5" id="user-intro"  name="basic_content" placeholder="输入案例说明"></textarea>
+              <textarea class="" rows="5" id="user-intro"  name="basic_content"  placeholder="输入案例说明"></textarea>
             </div>
           </div>
 
           <div class="am-form-group">
-            <div class="am-u-sm-9 am-u-sm-push-3">
-              <button type="button" class="am-btn am-btn-primary">保存修改</button>
+            <div class="am-u-sm-9 am-u-sm-push-3"> session   value  :  <%s.getAttribute("user");%> dgd
+              <button type="submit" class="am-btn am-btn-primary">下一步</button>
             </div>
           </div>
         </form>

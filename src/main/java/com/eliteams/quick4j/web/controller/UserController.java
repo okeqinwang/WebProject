@@ -34,11 +34,6 @@ public class UserController {
     private UserService userService;
     
     
-    @RequestMapping(value="index",method=RequestMethod.GET)
-    public String index(){
-    	return "index";
-    }
-    
     @RequestMapping(value="login",method=RequestMethod.GET)
     public String login(){
     	return "login";

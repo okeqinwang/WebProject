@@ -1,11 +1,19 @@
 package com.eliteams.quick4j.web.model;
 
-public class CaseModel {
+/**
+ * 基本信息
+ * @author spark
+ *
+ */
+public class BasicInfoModel {
 	
 	private String basic_casename;
 	private String basic_casetype;
 	private String basic_content;
 	private String basic_createname;
+	
+	
+	
 	public String getBasic_casename() {
 		return basic_casename;
 	}
@@ -34,8 +42,7 @@ public class CaseModel {
 	public String toString() {
 		return "CaseModel [basic_casename=" + basic_casename
 				+ ", basic_casetype=" + basic_casetype + ", basic_content="
-				+ basic_content + ", basic_createname=" + basic_createname
-				+ "]";
+				+ basic_content + ", basic_createname=" + basic_createname;
 	}
 	
 	

@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <hr/>
 
     <div class="am-g">
-
+   <form class="am-form am-form-horizontal"  action="index" method="get">
       <div class="am-u-sm-3 am-u-sm-3 ">
           
         <div class="am-panel am-panel-default">
@@ -34,6 +34,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-panel-hd">模拟区域列表</div>
           <div class="am-panel-bd">
             面板内容
+            <input type=text"  id="apple" name="apple" />
           </div>
           
           
@@ -57,6 +58,20 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         </div>
       </div>
     </div>
+    
+    <hr/>
+    
+    <div class="am-u-sm-6am-u-sm-push-6"> 
+              <button type="submit" class="am-btn am-btn-primary">上一步</button>
+     </div>
+     
+    </form>
+        
+       <div class="am-u-sm-6am-u-sm-push-6"> 
+              <button type="submit" class="am-btn am-btn-primary">下一步</button>
+     </div>
+    
+    
   </div>
 
   

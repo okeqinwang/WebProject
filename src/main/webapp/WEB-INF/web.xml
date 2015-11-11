@@ -112,5 +112,9 @@
         <exception-type>org.apache.shiro.authz.AuthorizationException</exception-type>
         <location>/401</location>
     </error-page>
+    
+    <session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
 
 </web-app>
