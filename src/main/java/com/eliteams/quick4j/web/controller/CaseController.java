@@ -54,12 +54,15 @@ public class CaseController {
 	@RequestMapping(value="admin-in" )
 	public String in(Model model,HttpSession session){
 		EmissionModel m =(EmissionModel) session.getAttribute("emission");
+//		System.out.println(m.toString());
         model.addAttribute("m",m); 
+        
 		return "admin-in";
 	}
 	
 	@RequestMapping(value="admin-in" ,method=RequestMethod.POST)
 	public String go_case(EmissionModel m,HttpSession session){
+		System.out.println(m.toString());
 		session.setAttribute("emission", m);
 		return "admin-case";
 	}
@@ -74,13 +77,27 @@ public class CaseController {
 		return "admin-case";
 	}
 	
+	@RequestMapping(value="admin-case" ,method=RequestMethod.POST)
+	public String go_para(SceneModel m,HttpSession session){
+		System.out.println(m.toString());
+		session.setAttribute("scene", m);
+		return "admin-para";
+	}
+	
 	//step 5 
 	
 	@RequestMapping(value="admin-para" )
 	public String param(Model model,HttpSession session){
-		ParamModel m =(ParamModel) session.getAttribute("scene");
+		ParamModel m =(ParamModel) session.getAttribute("para");
         model.addAttribute("m",m);
 		return "admin-para";
+	}
+	
+	@RequestMapping(value="admin-para" ,method=RequestMethod.POST)
+	public String go_para(ParamModel m,HttpSession session){
+//		System.out.println(m.toString());
+		session.setAttribute("m", m);
+		return "admin-test";
 	}
 	
 	//step 6
@@ -88,13 +105,21 @@ public class CaseController {
 	public String test(Model model,HttpSession session){
 		TestModel m =(TestModel) session.getAttribute("test");
         model.addAttribute("m",m);
-		return "admin-para";
+		return "admin-test";
+	}
+	
+	@RequestMapping(value="admin-test" ,method=RequestMethod.POST)
+	public String go_done(TestModel m,HttpSession session){
+//		System.out.println(m.toString());
+		session.setAttribute("test", m);
+		return "admin-done";
 	}
 	
 	
 	//step 6
 	@RequestMapping(value="admin-done" )
 	public String done(Model model,HttpSession session){
+		System.out.println("完成页面");
 		return "admin-done";
 	}
 	

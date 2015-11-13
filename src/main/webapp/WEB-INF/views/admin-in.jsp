@@ -10,7 +10,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <div class="am-cf admin-main">
 
-
+<form id="myform" action="admin-in" method="post">
   <!-- content start -->
   <div class="admin-content">
     <div class="am-cf am-padding">
@@ -24,12 +24,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
          
        
           <div class="am-u-sm-6">
-          <label for="case-name" class="am-u-sm-3 am-form-label">排放源输入</label>
+          <label for="case-name" class="am-u-sm-2 am-form-label">排放源输入</label>
             
-            <select  class="am-u-sm-2 " data-am-selected="{btnSize: 'sm'}">
-              <option value="option1">区域一</option>
-              <option value="option2">选项二</option>
-              <option value="option3">选项三</option>
+            <select  class="am-u-sm-4 "  id="areaid" name="area_id"  >
+              <option value="1">区域一</option>
+              <option value="2">选项二</option>
+              <option value="3">选项三</option>
             </select>
            </div>
            
@@ -55,10 +55,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <div class="am-g am-margin-top">
           <div class="am-u-md-4  am-text-right">排放清单</div>
           <div class="am-u-md-4 ">
-            <select data-am-selected="{btnSize: 'sm'}">
-              <option value="option1">选项一...</option>
-              <option value="option2">选项二.....</option>
-              <option value="option3">选项三........</option>
+            <select id="pf_qd" name="pf_qd">
+              <option value="1">选项一...</option>
+              <option value="2">选项二.....</option>
+              <option value="3">选项三........</option>
             </select>
           </div>
           <div class="am-u-md-4  ">
@@ -69,10 +69,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <div class="am-g am-margin-top">
           <div class="am-u-md-4  am-text-right">排放清单</div>
           <div class="am-u-md-4 ">
-            <select data-am-selected="{btnSize: 'sm'}">
-              <option value="option1">选项一...</option>
-              <option value="option2">选项二.....</option>
-              <option value="option3">选项三........</option>
+            <select id="pf_gxl" name="pf_gxl">
+              <option value="1">选项一...</option>
+              <option value="2">选项二.....</option>
+              <option value="3">选项三........</option>
             </select>
           </div>
           <div class="am-u-md-4 am-u-end ">
@@ -138,10 +138,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             <div class="am-g am-margin-top">
               <div class="am-u-md-4  am-text-right">时间分配方案</div>
               <div class="am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
-                  <option value="option1">选项一...</option>
-                  <option value="option2">选项二.....</option>
-                  <option value="option3">选项三........</option>
+                <select id="sj_plan" name="sj_plan">
+                  <option value="1">选项一...</option>
+                  <option value="2">选项二.....</option>
+                  <option value="3">选项三........</option>
                 </select>
               </div>
               <div class="am-u-md-4  ">
@@ -152,10 +152,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             <div class="am-g am-margin-top">
               <div class="am-u-md-4  am-text-right">排放源类别</div>
               <div class="am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
-                  <option value="option1">选项一...</option>
-                  <option value="option2">选项二.....</option>
-                  <option value="option3">选项三........</option>
+                <select id="sj_type" name="sj_type">
+                  <option value="1">选项一...</option>
+                  <option value="2">选项二.....</option>
+                  <option value="3">选项三........</option>
                 </select>
               </div>
               <div class="am-u-md-4  ">
@@ -193,10 +193,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     空间分配方案
                 </div>
                 <div class="am-u-md-4  ">
-                        <select data-am-selected="{btnSize: 'sm'}">
-                          <option value="option1">选项一...</option>
-                          <option value="option2">选项二.....</option>
-                          <option value="option3">选项三........</option>
+                        <select id="kj_plan" name="kj_plan">
+                          <option value="1">选项一...</option>
+                          <option value="2">选项二.....</option>
+                          <option value="3">选项三........</option>
                         </select>
                 </div>
                 
@@ -448,36 +448,27 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
   </div>
 
   <div class="am-margin">
-    <button type="button" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
-    <button type="button" class="am-btn am-btn-primary am-btn-xs">放弃保存</button>
-  </div>
+    <button type="button"   onclick="gocase()"  class="am-btn am-btn-primary am-btn-xs">下一步</button>
+    </div>
 
   </div>
   <!-- content end -->
-
+</form>
 </div>
 
-<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-
-<footer>
-  <hr>
-  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
-</footer>
-
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
-<!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
 <script type="text/javascript">
 function init(){
-}
+	console.log("init");
+	var s="${m. pf_gxl}";
+	console.log(s);
+	
+};
+function gocase(){
+	console.log("gocase");
+	$("#myform").submit();
+};
 </script>
+
+
 </body>
 </html>

@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <hr/>
 
     <div class="am-g">
-   <form class="am-form am-form-horizontal"  action="index" method="get">
+   <form class="am-form am-form-horizontal"  action="admin-area" method="post">
       <div class="am-u-sm-3 am-u-sm-3 ">
           
         <div class="am-panel am-panel-default">
@@ -62,42 +62,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <hr/>
     
     <div class="am-u-sm-6am-u-sm-push-6"> 
-              <button type="submit" class="am-btn am-btn-primary">上一步</button>
-     </div>
-     
-    </form>
-        
-       <div class="am-u-sm-6am-u-sm-push-6"> 
               <button type="submit" class="am-btn am-btn-primary">下一步</button>
      </div>
-    
-    
+     
+        
+   
   </div>
 
   
   <!-- content end -->
 
-</div>
-
-<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-
-<footer>
-  <hr>
-  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
-</footer>
-
-<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
-<!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
-
-<script src="assets/js/app.js"></script>
 
 <script type="text/javascript">
 function init(){
