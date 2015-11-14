@@ -8,9 +8,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <body>
 
 
+<form id="myform" action="admin-in" method="post">
 <div class="am-cf admin-main">
 
-<form id="myform" action="admin-in" method="post">
   <!-- content start -->
   <div class="admin-content">
     <div class="am-cf am-padding">
@@ -26,7 +26,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-u-sm-6">
           <label for="case-name" class="am-u-sm-2 am-form-label">排放源输入</label>
             
-            <select  class="am-u-sm-4 "  id="areaid" name="area_id"  >
+            <select  class="am-u-sm-4 "  id="area_id" name="area_id"  >
               <option value="1">区域一</option>
               <option value="2">选项二</option>
               <option value="3">选项三</option>
@@ -133,7 +133,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
       </div>
 
       <div class="am-tab-panel am-fade" id="tab2">
-        <form class="am-form">
             
             <div class="am-g am-margin-top">
               <div class="am-u-md-4  am-text-right">时间分配方案</div>
@@ -152,7 +151,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             <div class="am-g am-margin-top">
               <div class="am-u-md-4  am-text-right">排放源类别</div>
               <div class="am-u-md-4 ">
-                <select id="sj_type" name="sj_type">
+                <select id="sj_pf_type" name="sj_pf_type">
                   <option value="1">选项一...</option>
                   <option value="2">选项二.....</option>
                   <option value="3">选项三........</option>
@@ -181,11 +180,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
           
 
-        </form>
       </div>
     
       <div class="am-tab-panel am-fade" id="tab3">
-        <form class="am-form">
               
         <div class="am-g am-margin-top-sm">
             <div class="am-g">
@@ -219,10 +216,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                         区域
                 </div>
                 <div class="am-u-sm-2  ">
-                    <select data-am-selected="{btnSize: 'sm'}">
-                        <option value="option1">选项一...</option>
-                        <option value="option2">选项二.....</option>
-                        <option value="option3">选项三........</option>
+                    <select id="kj_area" name="kj_area">
+                        <option value="1">选项一...</option>
+                        <option value="2">选项二.....</option>
+                        <option value="3">选项三........</option>
                     </select>
                 </div>
                 
@@ -230,10 +227,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                         空间分配代码
                 </div>
                 <div class="am-u-sm-2  ">
-                    <select data-am-selected="{btnSize: 'sm'}">
-                        <option value="option1">选项一...</option>
-                        <option value="option2">选项二.....</option>
-                        <option value="option3">选项三........</option>
+                    <select id="kj_code" name="kj_code">
+                        <option value="1">选项一...</option>
+                        <option value="2">选项二.....</option>
+                        <option value="3">选项三........</option>
                     </select>
                 </div>
                  
@@ -256,11 +253,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                 <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg" class="am-img-responsive" alt=""/>
             </div>
          </div>
-        </form>
       </div>
 
       <div class="am-tab-panel am-fade" id="tab4">
-        <form class="am-form">
               
         <div class="am-g am-margin-top-sm">
             <div class="am-g">
@@ -268,10 +263,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     大气化学物种分配方案
                 </div>
                 <div class="am-u-md-4  ">
-                        <select data-am-selected="{btnSize: 'sm'}">
-                          <option value="option1">选项一...</option>
-                          <option value="option2">选项二.....</option>
-                          <option value="option3">选项三........</option>
+                        <select id="wz_plan" name="wz_plan">
+                          <option value="1">选项一...</option>
+                          <option value="2">选项二.....</option>
+                          <option value="3">选项三........</option>
                         </select>
                 </div>
                 <div class="am-u-md-2 am-text-left am-u-end">
@@ -289,7 +284,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                         化学机制
                 </div>
                 <div class="am-u-sm-2  ">
-                    <select data-am-selected="{btnSize: 'sm'}">
+                    <select id="wz_jz" name="wz_jz">
                         <option value="option1">选项一...</option>
                         <option value="option2">选项二.....</option>
                         <option value="option3">选项三........</option>
@@ -300,7 +295,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                         污染物
                 </div>
                 <div class="am-u-sm-2  ">
-                    <select data-am-selected="{btnSize: 'sm'}">
+                    <select id="wz_wrw" name="wz_wrw">
                         <option value="option1">选项一...</option>
                         <option value="option2">选项二.....</option>
                         <option value="option3">选项三........</option>
@@ -311,7 +306,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                         排放源类别
                 </div>
                 <div class="am-u-sm-1 am-u-end  ">
-                    <select data-am-selected="{btnSize: 'sm'}">
+                    <select id="wz_type" name="wz_type">
                         <option value="option1">选项一...</option>
                         <option value="option2">选项二.....</option>
                         <option value="option3">选项三........</option>
@@ -333,17 +328,15 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                 </div>
             </div>
          </div>
-        </form>
       </div>
 
       <div class="am-tab-panel am-fade" id="tab5">
-        <form class="am-form">
           <div class="am-g am-margin-top-sm">
             <div class="am-u-sm-2 am-u-md-2 am-text-right">
               植被功能型
             </div>
             <div class="am-u-sm-6 am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
+                <select id="try_pft" name="try_pft">
                   <option value="option1">选项一...</option>
                   <option value="option2">选项二.....</option>
                   <option value="option3">选项三........</option>
@@ -363,7 +356,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
               排放因子-页面指数
             </div>
             <div class="am-u-sm-6 am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
+                <select id="try_ef_lai" name="try_ef_lai">
                   <option value="option1">选项一...</option>
                   <option value="option2">选项二.....</option>
                   <option value="option3">选项三........</option>
@@ -385,7 +378,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                     预览选项
                 </div>
                 <div class="am-u-sm-6 am-u-md-4 am-u-end ">
-                    <select data-am-selected="{btnSize: 'sm'}">
+                    <select id="try_show" name="try_show">
                       <option value="option1">选项一...</option>
                       <option value="option2">选项二.....</option>
                       <option value="option3">选项三........</option>
@@ -439,28 +432,50 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         
         </div>
           
-        </form>
     </div>
 
 
 
-    </div>
-  </div>
+
 
   <div class="am-margin">
     <button type="button"   onclick="gocase()"  class="am-btn am-btn-primary am-btn-xs">下一步</button>
     </div>
-
-  </div>
-  <!-- content end -->
-</form>
+</div>
+</div>
+</div>
 </div>
 
+
+  <!-- content end -->
+
+</form>
 <script type="text/javascript">
 function init(){
-	console.log("init");
-	var s="${m. pf_gxl}";
-	console.log(s);
+	var flag = "${flag}";
+	console.log(flag);
+	if(flag == 1){
+		 console.log("come in");
+		$("#area_id").val("${m.area_id}");
+		$("#pf_qd").val("${m.pf_qd}");
+		$("#pf_gxl").val("${m.pf_gxl}");
+		
+		$("#sj_plan").val("${m.sj_plan}");
+		$("#sj_pf_type").val("${m.sj_pf_type}");
+		
+		$("#kj_plan").val("${m.kj_plan}");
+		$("#kj_area").val("${m.kj_area}");
+		$("#kj_code").val("${m.kj_code}");
+		
+		$("#wz_plan").val("${m.wz_plan}");
+		$("#wz_jz").val("${m.wz_jz}");
+		$("#wz_wrw").val("${m.wz_wrw}");
+		$("#wz_type").val("${m.wz_type}");
+		
+		$("#try_pft").val("${m.try_pft}");
+		$("#try_ef_lai").val("${m.try_ef_lai}");
+		$("#try_show").val("${m.try_show}");
+	}
 	
 };
 function gocase(){

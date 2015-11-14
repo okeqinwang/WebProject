@@ -24,7 +24,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">案例名称</label>
             <div class="am-u-sm-9">
-              <input type="text" id="user-name"    value= "${m.basic_casename }"  name="basic_casename"  >
+              <input type="text" id="basic_casename"    name="basic_casename"  >
             </div>
          </div>
          
@@ -32,7 +32,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">案例类别</label>
             <div class="am-u-sm-9">
-              <select  id="sel" class="am-u-sm-2 "  name="basic_casetype"  >
+              <select  id="basic_casetype" class="am-u-sm-2 "  name="basic_casetype"  >
                   <option value="1">区域一</option>
                   <option value="2">选项二</option>
                   <option value="3">选项三</option>
@@ -45,14 +45,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">创建人</label>
             <div class="am-u-sm-9">
-              <input type="text" id="user-phone" name="basic_createname"   value="${m.basic_createname}" placeholder="创建人">
+              <input type="text" id="basic_createname" name="basic_createname"  placeholder="创建人">
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="user-intro" class="am-u-sm-3 am-form-label">案例说明</label>
             <div class="am-u-sm-9">
-              <textarea class="" rows="5" id="content"  name="basic_content"  placeholder="输入案例说明"></textarea>
+              <textarea class="" rows="5" id="basic_content"  name="basic_content"  placeholder="输入案例说明"></textarea>
             </div>
           </div>
 
@@ -73,11 +73,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
-	var option = "${m.basic_casetype}";
-	$("#sel").val(option);
-	var content = "${m.basic_content}";
-	$("#content").val(content);
-	console.log(content);
+	$("#basic_createname").val("${username}");
+	var flag = "${flag}";
+	if(flag == 1){
+		$("#basic_casename").val("${m.basic_casename}");
+		$("#basic_createname").val("${username}");
+		$("#basic_casetype").val("${m.basic_casetype}");
+		$("#basic_content").val("${m.basic_content}");
+	}
 }
 </script>
 

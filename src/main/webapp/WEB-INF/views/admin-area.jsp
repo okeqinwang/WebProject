@@ -25,16 +25,32 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <div class="am-panel am-panel-default">
           <div class="am-panel-hd">嵌套区域</div>
           <div class="am-panel-bd">
-            面板内容
+              <select  id="area_in" class="am-u-sm-2 "  name="area_in"  >
+                  <option value="1">区域一</option>
+                  <option value="2">选项二</option>
+                  <option value="3">选项三</option>
+                  <option value="4">选项4</option>
+                  <option value="5">选项5</option>
+            </select>
           </div>
+          嵌套区域
+          ....
         </div>
         
         
         <div class="am-panel am-panel-default">
           <div class="am-panel-hd">模拟区域列表</div>
           <div class="am-panel-bd">
-            面板内容
-            <input type=text"  id="apple" name="apple" />
+           <select  id="area_simi" class="am-u-sm-2 "  name="area_simi"  >
+                  <option value="1">区域一</option>
+                  <option value="2">选项二</option>
+                  <option value="3">选项三</option>
+                  <option value="4">选项4</option>
+                  <option value="5">选项5</option>
+            </select>
+            
+           模拟区域列表
+           ....
           </div>
           
           
@@ -75,6 +91,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
+	var flag = "${flag}";
+	if(flag == 1){
+		$("#area_in").val("${m.area_in}");
+		$("#area_simi").val("${m.area_simi}");
+	}
 }
 </script>
 </body>

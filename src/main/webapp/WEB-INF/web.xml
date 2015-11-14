@@ -96,7 +96,7 @@
 
     <!-- 首页 -->
     <welcome-file-list>
-        <welcome-file>/index</welcome-file>
+        <welcome-file>index</welcome-file>
     </welcome-file-list>
 
     <!-- 错误页 -->

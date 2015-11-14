@@ -25,7 +25,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
               排放情景
             </div>
             <div class="am-u-sm-4 am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
+                <select id="sn_pf_scene" name="sn_pf_scene">
                   <option value="option1">选项一...</option>
                   <option value="option2">选项二.....</option>
                   <option value="option3">选项三........</option>
@@ -45,7 +45,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
               地区
             </div>
             <div class="am-u-sm-4 am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
+                <select id="sn_pf_area" name="sn_pf_area">
                   <option value="option1">选项一...</option>
                   <option value="option2">选项二.....</option>
                   <option value="option3">选项三........</option>
@@ -56,7 +56,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
               排放源类别
             </div>
             <div class="am-u-sm-4 am-u-md-4 ">
-                <select data-am-selected="{btnSize: 'sm'}">
+                <select  id="sn_pf_type" name="sn_pf_type">
                   <option value="option1">选项一...</option>
                   <option value="option2">选项二.....</option>
                   <option value="option3">选项三........</option>
@@ -116,8 +116,13 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </div>
 <script type="text/javascript">
 function init(){
-	console.log("dddd");
-}
+	var flag = "${flag}";
+	if(flag == 1){
+		$("#sn_pf_scene").val("${m.sn_pf_scene}");
+		$("#sn_pf_area").val("${m.sn_pf_area}");
+		$("#sn_pf_type").val("${m.sn_pf_type}");
+	}
+};
 </script>
 </body>
 </html>

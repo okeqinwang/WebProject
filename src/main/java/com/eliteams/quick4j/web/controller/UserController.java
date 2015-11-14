@@ -33,7 +33,7 @@ public class UserController {
     @Resource
     private UserService userService;
     
-    
+
     @RequestMapping(value="login",method=RequestMethod.GET)
     public String login(){
     	return "login";
@@ -47,7 +47,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String login(@Valid User user, BindingResult result, Model model, HttpServletRequest request) {
+    public String login(@Valid User user, BindingResult result, Model model, HttpServletRequest request,HttpSession session) {
     	
     	System.out.println(user.toString());
         try {
@@ -64,7 +64,9 @@ public class UserController {
             subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
             // 验证成功在Session中保存用户信息
             final User authUserInfo = userService.selectByUsername(user.getUsername());
-            request.getSession().setAttribute("userInfo", authUserInfo);
+            System.out.println(authUserInfo.toString());
+            session.setAttribute("userInfo", authUserInfo);
+            
         } catch (AuthenticationException e) {
             // 身份验证失败
             model.addAttribute("error", "用户名或密码错误 ！");
