@@ -1,7 +1,7 @@
 package com.eliteams.quick4j.web.security;
 
-import java.util.List;
 import javax.annotation.Resource;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -11,11 +11,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
-import com.eliteams.quick4j.web.model.Permission;
-import com.eliteams.quick4j.web.model.Role;
+
 import com.eliteams.quick4j.web.model.User;
-import com.eliteams.quick4j.web.service.PermissionService;
-import com.eliteams.quick4j.web.service.RoleService;
 import com.eliteams.quick4j.web.service.UserService;
 
 /**
@@ -30,34 +27,17 @@ public class SecurityRealm extends AuthorizingRealm {
     @Resource
     private UserService userService;
 
-    @Resource
-    private RoleService roleService;
-
-    @Resource
-    private PermissionService permissionService;
-
+ 
     /**
      * 权限检查
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        String username = String.valueOf(principals.getPrimaryPrincipal());
-
-        final User user = userService.selectByUsername(username);
-        final List<Role> roleInfos = roleService.selectRolesByUserId(user.getId());
-        for (Role role : roleInfos) {
-            // 添加角色
-            System.err.println(role);
-            authorizationInfo.addRole(role.getRoleSign());
-
-            final List<Permission> permissions = permissionService.selectPermissionsByRoleId(role.getId());
-            for (Permission permission : permissions) {
-                // 添加权限
-                System.err.println(permission);
-                authorizationInfo.addStringPermission(permission.getPermissionSign());
-            }
-        }
+//        String username = String.valueOf(principals.getPrimaryPrincipal());
+//
+//        final User user = userService.selectByUsername(username);
+//       
         return authorizationInfo;
     }
 

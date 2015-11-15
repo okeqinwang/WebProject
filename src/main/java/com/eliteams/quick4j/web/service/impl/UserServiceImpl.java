@@ -1,14 +1,15 @@
 package com.eliteams.quick4j.web.service.impl;
 
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
 import com.eliteams.quick4j.core.generic.GenericDao;
 import com.eliteams.quick4j.core.generic.GenericServiceImpl;
 import com.eliteams.quick4j.web.dao.UserMapper;
 import com.eliteams.quick4j.web.model.User;
-import com.eliteams.quick4j.web.model.UserExample;
 import com.eliteams.quick4j.web.service.UserService;
 
 /**
@@ -55,9 +56,9 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 
     @Override
     public User selectByUsername(String username) {
-        UserExample example = new UserExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        final List<User> list = userMapper.selectByExample(example);
+        User u = new User();
+        u.setUsername(username);
+        final List<User> list = userMapper.selectByUserName(u);
         return list.get(0);
     }
 
