@@ -119,10 +119,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
-	var msg = "${msg}";
-	if(!msg ==null){
-	   alert(msg);
-	}
+	console.log("test init page");
+	var para ="${allpara}";
+	console.log(para);
+	$("#params").append(para);
 };
 
 function commitTask(){

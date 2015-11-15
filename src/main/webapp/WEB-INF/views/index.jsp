@@ -45,7 +45,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">创建人</label>
             <div class="am-u-sm-9">
-              <input type="text" id="basic_createname" name="basic_createname"  placeholder="创建人">
+              <input type="text" id="basic_createname" name="basic_createname"   readonly="readonly"  placeholder="创建人">
             </div>
           </div>
 
@@ -73,8 +73,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
-	$("#basic_createname").val("${username}");
 	var flag = "${flag}";
+	$("#basic_createname").val("${username}");
 	if(flag == 1){
 		$("#basic_casename").val("${m.basic_casename}");
 		$("#basic_createname").val("${username}");

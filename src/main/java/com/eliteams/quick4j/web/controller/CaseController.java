@@ -47,15 +47,23 @@ public class CaseController {
 		if(file.exists()){
 			file.delete();
 		}
-		
 		// remove it when apply the real sysytem
 		List<String> cmds = new ArrayList<String>();
 		cmds.add("sh");
 		cmds.add("-c");
 		cmds.add("ping -c 50  baidu.com  ");
 		String []  cmd = cmds.toArray(new String [cmds.size()]);
-		RunShellUtil.executeCommand2File(cmd, file);
+		int status = RunShellUtil.executeCommand2File(cmd, file);
 //		model.addAttribute("result", "1");
+		if(status == 0){
+			//save to mysql
+			
+			
+			
+			model.addAttribute("status", "success");
+		}else{
+			model.addAttribute("status", "failed");
+		}
 		return "admin-test";
 	}
 		
@@ -67,10 +75,9 @@ public class CaseController {
 //		String _start = request.getParameter("lastTimeFileSize");
 		
 //		Object _start = session.getAttribute("lastTimeFileSize");
-		
 		Object obj = session.getAttribute("lastTimeFileSize");
 		Long start = Long.valueOf(obj.toString());
-		
+		//session.
 		System.out.println("session 中 lastTimeFileSize == "+start);
 				
 		User authUserInfo =(User) session.getAttribute("userInfo");
@@ -83,8 +90,8 @@ public class CaseController {
 		File logfile = new File(filepath);
 		try {
 			System.out.println("读取日志 准备休息5s");
-			Thread.sleep(5000);
 			realtimeShowLog(logfile,start);
+			Thread.sleep(5000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,6 +121,7 @@ public class CaseController {
 	        if( start>0&&(start == randomFile.length())){
 	        	result = "finished";
 	        	stop = "1";
+	        	System.out.println("读取日志完成");
 	        	randomFile.close();
 	        	return  ;
 	        }
@@ -223,8 +231,20 @@ public class CaseController {
 	}
 	
 	@RequestMapping(value="admin-para" ,method=RequestMethod.POST)
-	public String go_para(ParamModel m,HttpSession session){
+	public String go_para(ParamModel m,HttpSession session,Model model){
 //		System.out.println(m.toString());
+		
+		StringBuffer sb = new StringBuffer();
+		BasicInfoModel b = (BasicInfoModel) session.getAttribute("basic");
+		if(b!=null){
+			sb.append(b.toString()).append("<br>");
+		}
+		
+		SceneModel sc = (SceneModel) session.getAttribute("scene");
+		if(sc!=null){
+			sb.append(sc.toString()).append("<br>");
+		}
+		model.addAttribute("allpara", sb==null?"no param":sb.toString());
 		session.setAttribute("m", m);
 		return "admin-test";
 	}
@@ -232,9 +252,25 @@ public class CaseController {
 	//step 6
 	@RequestMapping(value="admin-test" )
 	public String test(Model model,HttpSession session){
+		
+		StringBuffer sb = new StringBuffer();
+		BasicInfoModel b = (BasicInfoModel) session.getAttribute("basic");
+		if(b!=null){
+			sb.append(b.toString()).append("<br>");
+		}
+		
+		SceneModel sc = (SceneModel) session.getAttribute("scene");
+		if(sc!=null){
+			sb.append(sc.toString()).append("<br>");
+		}
+		
+		
 		TestModel m =(TestModel) session.getAttribute("test");
         model.addAttribute("m",m);
         model.addAttribute("flag", m==null?0:1);
+        
+        model.addAttribute("allpara", sb==null?"no param":sb.toString());
+        
 		return "admin-test";
 	}
 	
@@ -252,9 +288,6 @@ public class CaseController {
 		System.out.println("完成页面");
 		return "admin-done";
 	}
-	
-	
-	
 	
 	
 }
