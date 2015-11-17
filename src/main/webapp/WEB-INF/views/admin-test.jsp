@@ -19,9 +19,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
   <div class="am-tabs am-margin" data-am-tabs>
     <ul class="am-tabs-nav am-nav am-nav-tabs">
-      <li class='am-active'><a href="#tab1">气象输入</a></li>
+      <li ><a href="#tab1">气象输入</a></li>
       <li><a href="#tab2">时间</a></li>
-      <li ><a href="#tab3">模型运行</a></li>
+      <li  class='am-active' ><a href="#tab3">模型运行</a></li>
       <li><a href="#tab4">QA/QC</a></li>
       <li><a href="#tab5">结果输出</a></li>
     </ul>
