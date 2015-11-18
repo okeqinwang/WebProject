@@ -19,9 +19,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
   <div class="am-tabs am-margin" data-am-tabs>
     <ul class="am-tabs-nav am-nav am-nav-tabs">
-      <li ><a href="#tab1">气象输入</a></li>
+      <li class='am-active'><a href="#tab1">气象输入</a></li>
       <li><a href="#tab2">时间</a></li>
-      <li  class='am-active' ><a href="#tab3">模型运行</a></li>
+      <li  ><a href="#tab3">模型运行</a></li>
       <li><a href="#tab4">QA/QC</a></li>
       <li><a href="#tab5">结果输出</a></li>
     </ul>
@@ -29,27 +29,36 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <div class="am-tabs-bd">
       <div class="am-tab-panel am-fade am-in am-active" id="tab1">
         <div class="am-g am-margin-top">
-          <div class="am-u-sm-4 am-u-md-2 am-text-right">显示状态</div>
-          <div class="am-u-sm-8 am-u-md-10">
-            <div class="am-btn-group" data-am-button>
-              <label class="am-btn am-btn-default am-btn-xs">
-                <input type="radio" name="options" id="option1"> 正常
-              </label>
-              <label class="am-btn am-btn-default am-btn-xs">
-                <input type="radio" name="options" id="option2"> 待审核
-              </label>
-              <label class="am-btn am-btn-default am-btn-xs">
-                <input type="radio" name="options" id="option3"> 不显示
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
+          		<table id="table_tab1"     class=" am-table am-table-striped am-table-hover table-main">
+				    <thead>
+				        <tr>
+				            <th>模拟区域</th>
+				            <th>xx1</th>
+				            <th>xx2</th>
+				            <th>xx3</th>
+				        </tr>
+				    </thead>
+				</table>
+       
+         </div>
+       </div>
       
      <div class="am-tab-panel am-fade am-in " id ="tab2">
      	<div class="am-g am-margin-top-sm">
-     		tab2
+     		     <table id="table_tab2"     class=" am-table am-table-striped am-table-hover table-main">
+				    <thead>
+				        <tr>
+				            <th>时间pp</th>
+				            <th>xx1</th>
+				            <th>xx2</th>
+				            <th>xx3</th>
+				        </tr>
+				    </thead>
+				</table>
      	</div>
+     	
+     	 <input type="text" class="am-form-field" placeholder="日历组件" data-am-datepicker readonly/>
+     	
      </div>
      
     
@@ -119,7 +128,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
-	console.log("test init page");
+	
+	init_tab1();
+	
+	init_tab2();
+	
 	var para ="${allpara}";
 	console.log(para);
 	$("#params").append(para);
@@ -144,47 +157,66 @@ function commitTask(){
 };
 
 
-function getlog(){
-	var stop = "0";
-	var lastTimeFileSize ="0";
-	var updater = {
-				poll : function() {
-					$.ajax({
-						url : "getLog",
-						type : "POST",
-						//contentType: "application/json; charset=utf-8",
-						data: {"lastTimeFileSize": lastTimeFileSize},
-						dataType : "json",
-						success : updater.onSuccess,
-						error : updater.onError
-					});
-				},
-				check: function (){
-					console.log("check");
-					//console.log("stop",stop);
-					if(stop == "0"){
-						console.log("go on  stop == 0..");
-					    updater.poll();
-					}
-				},
-				onSuccess : function(data, dataStatus) {
-					try {
-					stop = data.stop;
-					lastTimeFileSize =data.lastTimeFileSize;
-					$("#logs").append(data.data);
-					} catch (e) {
-						//console.log(e);
-						//updater.onError();
-						//return;
-					}
-					interval = setTimeout(updater.check,5000);
-				},
-				onError : function() {
-					console.log("获取日志失败");
-				}
-			};
-	    updater.poll();
-	}
+
+function init_tab1(){
+	  $('#table_tab1').DataTable({
+	    	 "paging":   false,
+	    	  "ordering": false,
+	    	  "info":     false,
+	    	  "searching":false,
+	    	  "ajax": {
+	              "url": "assets/data/data.json",
+	              "dataType": "json"
+	          },
+	    	  "columnDefs":[
+	    	  {
+	              "targets": 1,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row[0]+"1'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 2,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row[0]+"2'/>";
+	              }
+	    	  },
+	     	  {
+	              "targets": 3,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row[0]+"3'/>";
+	              }
+	    	  }
+	    	  
+	    	  ]
+	    });
+}
+
+
+function init_tab2(){
+	  $('#table_tab2').DataTable({
+	    	 "paging":   false,
+	    	  "ordering": false,
+	    	  "info":     false,
+	    	  "searching":false,
+	    	  "ajax": {
+	              "url": "assets/data/data.json",
+	              "dataType": "json"
+	          },
+	    	  "columnDefs":[
+	    	  
+	    	  {
+	              "targets": 2,
+	              "render": function(data, type, row) {
+	            	  //return  "<input  type='text' id='"+row[0]+"2'/>";
+	            	
+	            	  return " <input type='text' class='am-form-field'  data-am-datepicker readonly/>";
+	              }
+	    	  }
+	    	  ]
+	    });
+}
+
 </script>
 </body>
 </html>

@@ -10,8 +10,8 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login"/>
-        <property name="successUrl" value="/index"/>
-        <property name="unauthorizedUrl" value="/401"/>
+        <property name="successUrl" value="/welcome"/>
+        <property name="unauthorizedUrl" value="/login"/>
         <property name="filterChainDefinitions">
             <value>
                 <!-- 静态资源允许访问 -->

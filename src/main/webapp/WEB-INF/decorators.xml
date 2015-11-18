@@ -9,5 +9,7 @@
     <excludes>
         <pattern>/assets/**</pattern>
          <pattern>/login</pattern>
+         <pattern>/welcome</pattern>
+       
     </excludes>
 </decorators>

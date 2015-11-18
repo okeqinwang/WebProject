@@ -38,6 +38,14 @@ public class UserController {
     public String login(){
     	return "login";
     }
+    
+    
+    @RequestMapping(value="welcome",method=RequestMethod.GET)
+    public String welcome(Model model,HttpSession session){
+    	String username = (String) session.getAttribute("username");
+    	model.addAttribute("username", username);
+    	return "welcome";
+    }
 
     /**
      * 用户登录
@@ -54,7 +62,7 @@ public class UserController {
             Subject subject = SecurityUtils.getSubject();
             // 已登陆则 跳到首页
             if (subject.isAuthenticated()) {
-                return "redirect:/index";
+                return "redirect:/welcome";
             }
             if (result.hasErrors()) {
                 model.addAttribute("error", "参数错误！");
@@ -64,15 +72,16 @@ public class UserController {
             subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
             // 验证成功在Session中保存用户信息
             final User authUserInfo = userService.selectByUsername(user.getUsername());
-            System.out.println(authUserInfo.toString());
             session.setAttribute("userInfo", authUserInfo);
+            session.setAttribute("username", authUserInfo.getUsername());
+            session.setAttribute("task_status", "unfinish");
             
         } catch (AuthenticationException e) {
             // 身份验证失败
             model.addAttribute("error", "用户名或密码错误 ！");
             return "login";
         }
-        return "redirect:/index";
+        return "redirect:/welcome";
     }
 
     /**
