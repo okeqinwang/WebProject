@@ -52,7 +52,7 @@ function getlog(){
 						//updater.onError();
 						//return;
 					}
-					interval = setTimeout(updater.check,3000);
+					interval = setTimeout(updater.check,0);
 				},
 				onError : function() {
 					console.log("获取日志失败");

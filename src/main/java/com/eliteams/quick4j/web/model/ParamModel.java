@@ -9,6 +9,8 @@ public class ParamModel {
 	private String p_run_ar_layer;
 	private String p_pt_layer;
 	private String p_itm_status;
+	
+	
 	public String getP_area() {
 		return p_area;
 	}
@@ -58,7 +60,25 @@ public class ParamModel {
 		this.p_itm_status = p_itm_status;
 	}
 	public ParamModel() {
+	}
+	
+	public ParamModel(String p_area) {
+		this.p_area = p_area;
+	}
+	
+	
+	public ParamModel(String p_area, String p_run_pt, String p_run_ar,
+			String p_run_megan, String p_run_superregion,
+			String p_run_ar_layer, String p_pt_layer, String p_itm_status) {
 		super();
+		this.p_area = p_area;
+		this.p_run_pt = p_run_pt;
+		this.p_run_ar = p_run_ar;
+		this.p_run_megan = p_run_megan;
+		this.p_run_superregion = p_run_superregion;
+		this.p_run_ar_layer = p_run_ar_layer;
+		this.p_pt_layer = p_pt_layer;
+		this.p_itm_status = p_itm_status;
 	}
 	@Override
 	public String toString() {

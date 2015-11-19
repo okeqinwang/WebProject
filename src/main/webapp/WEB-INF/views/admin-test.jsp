@@ -4,7 +4,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-
 <body>
 
 
@@ -54,11 +53,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				            <th>xx3</th>
 				        </tr>
 				    </thead>
+				     
 				</table>
      	</div>
-     	
-     	 <input type="text" class="am-form-field" placeholder="日历组件" data-am-datepicker readonly/>
-     	
      </div>
      
     
@@ -74,16 +71,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		        	
 		        		
 		               </pre>
-			      
 			        </div>
 			      </div>
-     		
-     		
-     		
      		</div>
      		
      		<div class="am-u-md-6">
-     		
      		<div class="am-g error-log">
 		      <div id="log" class="am-u-sm-12 am-u-sm-centered">
 		        <pre id="logs" class="am-pre-scrollable">
@@ -128,11 +120,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
-	
 	init_tab1();
-	
 	init_tab2();
-	
 	var para ="${allpara}";
 	console.log(para);
 	$("#params").append(para);
@@ -147,11 +136,11 @@ function commitTask(){
 		data:data,
 		success:function (data,status){
 			if(status== "success"){
-				alert("run success");
+				alert(data.result);
 			}
 		},
 		error:function(){
-			console.log("err data");
+			console.log("bad request");
 		}
 	});
 };
@@ -199,21 +188,31 @@ function init_tab2(){
 	    	  "ordering": false,
 	    	  "info":     false,
 	    	  "searching":false,
+	    	  "stateSave":true,
+	    	  "autoWidgh":true,
 	    	  "ajax": {
 	              "url": "assets/data/data.json",
 	              "dataType": "json"
 	          },
+	          "initComplete":function(){
+	        	  //$.datepicker.formatDate( 'yyyy-mm-dd', 'oo', '' );
+	    		  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+	    	  },
 	    	  "columnDefs":[
-	    	  
 	    	  {
-	              "targets": 2,
+	              "targets": 1,
 	              "render": function(data, type, row) {
-	            	  //return  "<input  type='text' id='"+row[0]+"2'/>";
-	            	
-	            	  return " <input type='text' class='am-form-field'  data-am-datepicker readonly/>";
+	            	  return " <input type='text' class='datepicker am-form-field'  readonly id='"+row[0]+"1'/>";
+	              }
+	    	  },
+	     	  {
+	              "targets": 3,
+	              "render": function(data, type, row) {
+	            	  return " <input type='text' class='datepicker am-form-field'  readonly id='"+row[0]+"3'/>";
 	              }
 	    	  }
 	    	  ]
+	    	 
 	    });
 }
 

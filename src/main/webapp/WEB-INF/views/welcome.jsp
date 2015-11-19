@@ -49,31 +49,22 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 		</div>
 	
 		<div  class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list"> 
-				<table id="table_id"     class=" am-table am-table-striped am-table-hover table-main am-datepicker-date">
-				    <thead>
-				        <tr>
-				            <th>模拟区域</th>
-				            <th>xx1</th>
-				            <th>xx2</th>
-				            <th>xx3</th>
-				        </tr>
-				    </thead>
-				    
-				    <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td><input type="text" class="am-form-field " placeholder="日历组件" data-am-datepicker readonly/></td>
-                <td>61</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>2011/07/25</td>
-                <td><input type="text" class="am-form-field  " placeholder="日历组件" data-am-datepicker readonly/></td>
-            </tr>
-            </tbody>
-				</table>
+				
+			  <button type="button" class="am-btn am-btn-primary js-modal-open">打开 Modal</button>
+  <button type="button" class="am-btn am-btn-secondary js-modal-close">关闭 Modal</button>
+  <button type="button" class="am-btn am-btn-danger js-modal-toggle">Toggle Modal</button>
+				
+				<div class="am-modal am-modal-no-btn" tabindex="-1" id="my-modal">
+				  <div class="am-modal-dialog">
+				    <div class="am-modal-hd">Modal 标题
+				      <a href="index" class="am-close am-close-spin " data-am-modal-close>&times;</a>
+				    </div>
+				    <div class="am-modal-bd">
+				      Modal 内容。
+				    </div>
+				  </div>
+				</div>
+				
 		</div>
 	
 		
@@ -82,16 +73,32 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
   <!-- content end -->
 </div>
 </form>
+
+
 <script type="text/javascript">
+
+
+function add(){
+	console.log("modual");
+	var $modal = $("#my-modal");
+
+    $modal.siblings('.am-btn').on('click', function(e) {
+      var $target = $(e.target);
+      if (($target).hasClass('js-modal-open')) {
+        $modal.modal();
+      } else if (($target).hasClass('js-modal-close')) {
+        $modal.modal('close');
+      } else {
+        $modal.modal('toggle');
+      }
+    });
+}
 
 function init(){
 
-	var status = "${stop}";
-	console.log(status);
-	if(status == 0){
-		console.log("begin to get logs stop ==0");
-		getlog();
-	}
+	console.log("init welcome page");
+	add();
+
 }
 
 function showlog(){

@@ -21,8 +21,6 @@
   <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="assets/css/admin.css">
   <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.css">
-   <link rel="stylesheet" type="text/css" href="assets/css/amazeui.datetimepicker.css">
-  
 
   
   <decorator:head />
@@ -81,6 +79,5 @@
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script type="text/javascript" charset="utf8" src="assets/js/jquery.dataTables.js"></script>
-<script src="assets/js/amazeui.datetimepicker.js"></script>
 </body>
 </html>
