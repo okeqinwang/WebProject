@@ -196,6 +196,17 @@ public class CaseController {
 		BasicInfoModel basic = (BasicInfoModel) session.getAttribute("basic");
 //		ParamModel param = (ParamModel) session.getAttribute("paramlist");
 		boolean status = caseService.saveCaseData();
+		CaseDataModel m = new CaseDataModel();
+		m.setId("4");
+		m.setCase_name("case name");
+		m.setArinv_inventory("dddd");
+//		caseService.insert(m);
+		List<CaseDataModel> list= caseService.selectList();
+		if(list!=null && list.size()>0){
+			for(CaseDataModel mm : list){
+				System.out.println(mm.getId()+"\t"+mm.getCase_name()+mm.toString());
+			}
+		}
 		if(status ==true){
 			msg.put("msg", "恭喜，数据保存成功");
 		}else{

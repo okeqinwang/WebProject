@@ -100,7 +100,7 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 		int size = arealist.size();
 		res = new ArrayList<CaseDataModel>(size);
 		for(int i=0;i<size;i++){
-			CaseDataModel data = new CaseDataModel();
+			CaseDataModel data = new CaseDataModel(basic,arealist.get(i),scene);
 			res.add(data);
 		}
 		return res;

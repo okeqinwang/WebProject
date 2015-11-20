@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这块等于dao接口的实现 namespace必须和接口的类路径一样 -->
+<mapper namespace="com.eliteams.quick4j.web.dao.CaseDataMapper">
+	<!-- findByName 和 inserUser必须和接口中的方法名一样 返回一个User 就是刚才的别名 如果不弄别名要连类路径一起写 -->
+	<select id="selectList"  resultType="com.eliteams.quick4j.web.model.CaseDataModel">
+		select * from case_data 
+	</select>
+
+	<insert id="insert" parameterType="com.eliteams.quick4j.web.model.CaseDataModel">
+		  insert into case_data (id,  case_name,  case_type,  abbreviation,  creator,  description,  created_time,  
+		  lastmodifiedby,  lastmodifiedat,  base_year,  st_date,  ed_date,  episode,  st_time,  run_status,  domain_group, 
+		   domain,  domain_num,  aqm_type,  sp_type,  ae_type,  run_ar,  run_pt,  run_megan,  run_superregion,  run_ar_layer,  
+		   run_pt_layer,  run_src,  merge_all,  itm_status,  arinv_inventory,  ptinv_inventory,  temporal_ref,  spatial_ref,  chemical_ref,  
+		   megan_eflai,  megan_pftf,  scenario_file,  metpath,  grid_cro_2d,  grid_cro_3d,  met_cro_2d,  met_cro_3d,  met_dot_3d,  laynum) 
+		    values (#{id},#{case_name},#{case_type},#{abbreviation},#{creator},#{description},#{created_time},#{lastmodifiedby},
+		    #{lastmodifiedat},#{base_year},#{st_date},#{ed_date},#{episode},#{st_time},#{run_status},#{domain_group},#{domain},
+		    #{domain_num},#{aqm_type},#{sp_type},#{ae_type},#{run_ar},#{run_pt},#{run_megan},#{run_superregion},#{run_ar_layer},
+		    #{run_pt_layer},#{run_src},#{merge_all},#{itm_status},#{arinv_inventory},#{ptinv_inventory},#{temporal_ref},#{spatial_ref},
+		    #{chemical_ref},#{megan_eflai},#{megan_pftf},#{scenario_file},#{metpath},#{grid_cro_2d},#{grid_cro_3d},#{met_cro_2d},
+		    #{met_cro_3d},#{met_dot_3d},#{laynum})
+	</insert>
+	
+	
+	
+</mapper>
