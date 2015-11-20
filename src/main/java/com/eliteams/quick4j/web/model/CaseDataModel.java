@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class CaseDataModel implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6248446556138909736L;
 	private String id;
 	private String case_name;
@@ -389,6 +386,9 @@ public class CaseDataModel implements Serializable {
 	public CaseDataModel() {
 		super();
 	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "CaseDataModel [id=" + id + ", case_name=" + case_name

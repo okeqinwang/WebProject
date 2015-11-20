@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 import com.eliteams.quick4j.core.generic.GenericDao;
 import com.eliteams.quick4j.core.generic.GenericServiceImpl;
 import com.eliteams.quick4j.web.dao.CaseDataMapper;
+import com.eliteams.quick4j.web.model.AreaModel;
+import com.eliteams.quick4j.web.model.BasicInfoModel;
 import com.eliteams.quick4j.web.model.CaseDataModel;
+import com.eliteams.quick4j.web.model.CaseDataSessionModel;
 import com.eliteams.quick4j.web.model.ParamModel;
+import com.eliteams.quick4j.web.model.SceneModel;
 import com.eliteams.quick4j.web.service.CaseDataService;
 
 /**
@@ -79,10 +83,28 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 
 	@Override
 	public boolean saveCaseData() {
+		
+		this.assemCaseDataModel(null);
 		return false;
 	}
 	
-	
+	//assemble object from session data
+	private List<CaseDataModel> assemCaseDataModel(CaseDataSessionModel model){
+		List<CaseDataModel> res = null;
+		if(model  == null){
+			return null; 
+		}
+		List<AreaModel> arealist = model.getArealist();
+		BasicInfoModel basic = model.getBasic();
+		SceneModel scene = model.getScene();
+		int size = arealist.size();
+		res = new ArrayList<CaseDataModel>(size);
+		for(int i=0;i<size;i++){
+			CaseDataModel data = new CaseDataModel();
+			res.add(data);
+		}
+		return res;
+	}
 	
 	
 

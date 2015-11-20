@@ -191,7 +191,7 @@ function init_tab2(){
 	    	  "stateSave":true,
 	    	  "autoWidgh":true,
 	    	  "ajax": {
-	              "url": "assets/data/data.json",
+	              "url": "getTimeData",
 	              "dataType": "json"
 	          },
 	          "initComplete":function(){

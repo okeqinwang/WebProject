@@ -12,6 +12,24 @@ public class AreaModel implements Serializable {
 	 */
 	private String  area_in;    //嵌套区域
 	private String  area_simi; // 模拟区域
+	
+	private EmissionModel emission;
+	private ParamModel param;
+	
+	
+	
+	public EmissionModel getEmission() {
+		return emission;
+	}
+	public void setEmission(EmissionModel emission) {
+		this.emission = emission;
+	}
+	public ParamModel getParam() {
+		return param;
+	}
+	public void setParam(ParamModel param) {
+		this.param = param;
+	}
 	public String getArea_in() {
 		return area_in;
 	}
