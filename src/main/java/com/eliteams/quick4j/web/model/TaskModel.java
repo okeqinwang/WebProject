@@ -1,7 +1,13 @@
 package com.eliteams.quick4j.web.model;
 
-public class TaskModel {
+import java.io.Serializable;
+
+public class TaskModel  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7560633414371054778L;
 	private String stop;
 	private String result;
 	private long lastTimeFileSize;

@@ -1,6 +1,12 @@
 package com.eliteams.quick4j.web.model;
 
-public class SceneModel {
+import java.io.Serializable;
+
+public class SceneModel  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 627649807860499814L;
 	private String sn_pf_scene; //排放场景
 	private String sn_pf_area;   //地区
 	private String sn_pf_type;    //排放源类别

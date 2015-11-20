@@ -1,7 +1,13 @@
 package com.eliteams.quick4j.web.model;
 
-public class CaseDataModel {
+import java.io.Serializable;
 
+public class CaseDataModel implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6248446556138909736L;
 	private String id;
 	private String case_name;
 	private String case_type;
@@ -47,6 +53,7 @@ public class CaseDataModel {
 	private String met_cro_3d;
 	private String met_dot_3d;
 	private String laynum;
+	
 	public String getId() {
 		return id;
 	}

@@ -1,6 +1,12 @@
 package com.eliteams.quick4j.web.model;
 
-public class ParamModel {
+import java.io.Serializable;
+
+public class ParamModel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7273739388902038649L;
 	private String p_area;
 	private String p_run_pt;
 	private String p_run_ar;

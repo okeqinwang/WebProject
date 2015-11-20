@@ -10,4 +10,6 @@ public   interface CaseDataService extends GenericService<CaseDataModel, Long> {
 
 	public List<ParamModel>  initParamModel(String params,String areas);
 	
+	public boolean saveCaseData();
+	
 }

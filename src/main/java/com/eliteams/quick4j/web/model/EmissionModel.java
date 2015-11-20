@@ -1,11 +1,18 @@
 package com.eliteams.quick4j.web.model;
 
+import java.io.Serializable;
+
 /**
  * 排放源输入
  * @author spark
  *
  */
-public class EmissionModel {
+public class EmissionModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -691652906380787653L;
+
 	private String  area_id;
 	
 	private String pf_qd;   //排放清单

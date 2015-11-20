@@ -1,6 +1,15 @@
 package com.eliteams.quick4j.web.model;
 
-public class AreaModel {
+import java.io.Serializable;
+
+public class AreaModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6195153886438062700L;
+	/**
+	 * 
+	 */
 	private String  area_in;    //嵌套区域
 	private String  area_simi; // 模拟区域
 	public String getArea_in() {

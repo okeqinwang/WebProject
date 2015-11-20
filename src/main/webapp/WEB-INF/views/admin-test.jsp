@@ -35,6 +35,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				            <th>xx1</th>
 				            <th>xx2</th>
 				            <th>xx3</th>
+				            <th>xx4</th>
+				             <th>xx5</th>
 				        </tr>
 				    </thead>
 				</table>
@@ -51,6 +53,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				            <th>xx1</th>
 				            <th>xx2</th>
 				            <th>xx3</th>
+				         
 				        </tr>
 				    </thead>
 				     
@@ -122,33 +125,16 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 function init(){
 	init_tab1();
 	init_tab2();
-	var para ="${allpara}";
-	console.log(para);
-	$("#params").append(para);
 };
 
-function commitTask(){
-	console.log("commit");
-	var data={};
-	$.ajax({
-		url:"commitTask",
-		type:"post",
-		data:data,
-		success:function (data,status){
-			if(status== "success"){
-				alert(data.result);
-			}
-		},
-		error:function(){
-			console.log("bad request");
-		}
-	});
-};
 
 
 
 function init_tab1(){
 	  $('#table_tab1').DataTable({
+		     "sScrollY": "97%",
+		     "sScrollX": "98%",
+		     "AutoWidth": true,
 	    	 "paging":   false,
 	    	  "ordering": false,
 	    	  "info":     false,
@@ -175,7 +161,21 @@ function init_tab1(){
 	              "render": function(data, type, row) {
 	            	  return  "<input type='file' id='"+row[0]+"3'/>";
 	              }
+	    	  },
+	    	  {
+	              "targets": 4,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row[0]+"3'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 5,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row[0]+"3'/>";
+	              }
 	    	  }
+	    
+	    
 	    	  
 	    	  ]
 	    });
@@ -215,6 +215,24 @@ function init_tab2(){
 	    	 
 	    });
 }
+
+function commitTask(){
+	console.log("commit");
+	var data={};
+	$.ajax({
+		url:"commitTask",
+		type:"post",
+		data:data,
+		success:function (data,status){
+			if(status== "success"){
+				alert(data.result);
+			}
+		},
+		error:function(){
+			console.log("bad request");
+		}
+	});
+};
 
 </script>
 </body>

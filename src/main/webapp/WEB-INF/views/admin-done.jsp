@@ -17,8 +17,9 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         </div>
         
         <hr/>
-
-
+	<div  class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list"> 
+	   <button type="button" onclick="saveresult()"   class="am-btn am-btn-primary am-btn-md">保存结果</button>
+    </div>
   </div>
   <!-- content end -->
 
@@ -27,6 +28,21 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 <script type="text/javascript">
 function init(){
+}
+
+function saveresult(){
+	$.ajax({
+		"url":"saveResult",
+		"type":"get",
+		"success":function(data,status){
+			 if(status == "success"){
+				 alert(data.msg);
+			 }
+		},
+		"error":function(){
+			alert("服务器未知错误，请求失败");
+		}
+	});
 }
 </script>
 </body>

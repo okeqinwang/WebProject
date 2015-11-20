@@ -15,7 +15,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     </div>
     <hr/>
     <div class="am-g">
-   <form id="myform" class="am-form am-form-horizontal"  action="admin-para" method="post">
     
     		<div  class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list"> 
 				<table id="table_ids"     class=" am-table am-table-striped am-table-hover table-main">
@@ -37,7 +36,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <div class="am-u-sm-6am-u-sm-push-6"> 
               <button type="button" onclick="getpara()"  class="am-btn am-btn-primary">下一步</button>
      </div>
-     </form>      
    </div>
   <!-- content end -->
 </div>
@@ -61,7 +59,20 @@ function getpara(){
 	  projects.shift();
 	  
 	  console.log(projects);
-	  $.post('admin-para',{"listpara":data.join(","),"projects":projects.join(",")});
+	  var data = {"listpara":data.join(","),"projects":projects.join(",")};
+	  $.ajax({
+		  "url":"admin-para",
+		  "method":"post",
+		  "data":data,
+		  "success":function(data,status){
+			  if(status == "success"){
+				  window.location.href="admin-test";
+			  }
+		  }
+		  
+	  });
+	 // $.post('admin-para',{"listpara":data.join(","),"projects":projects.join(",")});
+	  console.log("post 完成");
 }
 
 function init(){
@@ -70,6 +81,16 @@ function init(){
 
 function init_table(){
 	$('#table_ids').DataTable({
+	   "columns": [
+     	   	        { "data": "p_area" },
+     	   	        {"data": "p_run_pt" },
+     	   	        { "data": "p_run_ar" },
+     	   	        { "data": "p_run_megan" },
+     	   	        { "data": "p_run_superregion" },
+     	   	        { "data": "p_run_ar_layer" },
+     	   	        { "data": "p_pt_layer" },
+     	   	        { "data": "p_itm_status" }
+     	   	    ],
    	 "paging":   false,
    	  "ordering": false,
    	  "info":     false,
@@ -92,7 +113,6 @@ function init_table(){
    	  {
              "targets": 1,
              "render": function(data, type, row,index) {
-            
            	  if(data == 1){
 	                  return  "<input   type='checkbox'  value=1 checked='checked'  id='"+row[0]+"1' name='listparaform[" +index.row +"].p_run_pt'/>";
            	  }
@@ -152,14 +172,8 @@ function init_table(){
               	  }
               	     return  "<input   type='checkbox'  value=0  id='"+row[0]+"7' name='listparaform[" +index.row +"].p_itm_status'/>";
              }
-   	  },
-   	  {
-          "targets": 0,
-          "render": function(data, type, row,index) {
-        	       return  row[0] ;
-          }
-	  }
-   	  
+   	  }
+   	   	  
    	  ]
    });
 }

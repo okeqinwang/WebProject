@@ -76,6 +76,11 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 		}
 		return res;
 	}
+
+	@Override
+	public boolean saveCaseData() {
+		return false;
+	}
 	
 	
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eliteams.quick4j.web.model.AreaModel;
 import com.eliteams.quick4j.web.model.BasicInfoModel;
+import com.eliteams.quick4j.web.model.CaseDataModel;
 import com.eliteams.quick4j.web.model.EmissionModel;
 import com.eliteams.quick4j.web.model.ParamListForm;
 import com.eliteams.quick4j.web.model.ParamModel;
@@ -132,35 +133,18 @@ public class CaseController {
 		return "admin-para";
 	}
 	
-	@RequestMapping(value="getParaData")
-	@ResponseBody
-	public Map<String,Object>  getParaData(HttpSession session){
-		Map<String,Object> msg = new HashMap<String, Object>();
-		List<AreaModel> areas = (List<AreaModel>) session.getAttribute("arealist");
-		if(areas!=null && areas.size()>0){
-			List<ParamModel> res = new ArrayList<ParamModel>();
-			for(int i=0;i<areas.size();i++){
-				ParamModel p = new ParamModel(areas.get(i).getArea_in());
-				System.out.println("生成参数对象 "+p.toString());
-				res.add(p);
-			}
-			msg.put("status", "success");
-			msg.put("data", res);
-		}else{
-			msg.put("status", "failed");
-		}
-		return msg;
-	}
+	
 	
 	@RequestMapping(value="admin-para" ,method=RequestMethod.POST)
-	public String go_para(ParamListForm listparaform,HttpSession session,Model model,HttpServletRequest request){
+	public String go_test(ParamListForm listparaform,HttpSession session,Model model,HttpServletRequest request){
 		String  data =request.getParameter("listpara");
 		String projects = request.getParameter("projects");
 		if(data!=null && projects!=null){
 			//service doing 
 			List<ParamModel> params = caseService.initParamModel(data, projects);
-			session.setAttribute("params", params);
+			session.setAttribute("paramlist", params);
 		}
+		System.out.println("准备跳转到test页面");
 		return "admin-test";
 	}
 	
@@ -204,5 +188,20 @@ public class CaseController {
 		return "admin-done";
 	}
 	
+	@RequestMapping(value="saveResult")
+	@ResponseBody
+	public Map<String,Object> saveResult(HttpSession session){
+		Map<String,Object> msg = new HashMap<String, Object>();
+		
+		BasicInfoModel basic = (BasicInfoModel) session.getAttribute("basic");
+//		ParamModel param = (ParamModel) session.getAttribute("paramlist");
+		boolean status = caseService.saveCaseData();
+		if(status ==true){
+			msg.put("msg", "恭喜，数据保存成功");
+		}else{
+			msg.put("msg", "ooh,数据保存遇到问题，联系管理员");
+		}
+		return msg;
+	}
 	
 }
