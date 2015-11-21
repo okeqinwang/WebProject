@@ -19,6 +19,7 @@ import com.eliteams.quick4j.web.model.AreaModel;
 import com.eliteams.quick4j.web.model.BasicInfoModel;
 import com.eliteams.quick4j.web.model.CaseDataModel;
 import com.eliteams.quick4j.web.model.EmissionModel;
+import com.eliteams.quick4j.web.model.ParaTimeModel;
 import com.eliteams.quick4j.web.model.ParamListForm;
 import com.eliteams.quick4j.web.model.ParamModel;
 import com.eliteams.quick4j.web.model.SceneModel;
@@ -174,9 +175,15 @@ public class CaseController {
 	}
 	
 	@RequestMapping(value="admin-test" ,method=RequestMethod.POST)
-	public String go_done(TestModel m,HttpSession session){
-//		System.out.println(m.toString());
-		session.setAttribute("test", m);
+	public String go_done(TestModel m,HttpSession session,HttpServletRequest request){
+		String  data =request.getParameter("timepara");
+		String projects = request.getParameter("projects");
+		if(data!=null && projects!=null){
+			//service doing 
+			List<ParaTimeModel> params = caseService.initParaTimeModel(data, projects);
+			session.setAttribute("paramtimelist", params);
+		}
+		System.out.println("准备跳转到done页面");
 		return "admin-done";
 	}
 	
