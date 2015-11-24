@@ -1,7 +1,10 @@
 package com.eliteams.quick4j.web.model;
 
-public class CaseDataModel {
+import java.io.Serializable;
 
+public class CaseDataModel implements Serializable {
+
+	private static final long serialVersionUID = 6248446556138909736L;
 	private String id;
 	private String case_name;
 	private String case_type;
@@ -47,6 +50,7 @@ public class CaseDataModel {
 	private String met_cro_3d;
 	private String met_dot_3d;
 	private String laynum;
+	
 	public String getId() {
 		return id;
 	}
@@ -382,6 +386,70 @@ public class CaseDataModel {
 	public CaseDataModel() {
 		super();
 	}
+	
+	public CaseDataModel(BasicInfoModel basic,AreaModel area,SceneModel scene,ParaTimeModel paratime,WeatherFilePath wfp,ParamModel para){
+		
+		
+		if(basic!=null){
+			
+			this.case_name=basic.getBasic_casename();
+			this.case_type=basic.getBasic_casetype();
+			this.creator=basic.getBasic_casename();
+			this.description=basic.getBasic_content();
+			//		this.domain_num
+		}
+
+		if(area!=null){
+			this.domain=area.getArea_in();
+			EmissionModel em = area.getEmission();
+			if(em!=null){
+				this.abbreviation = em.getPf_qd();
+				this.temporal_ref = em.getSj_plan();
+				this.spatial_ref = em.getKj_plan();
+				this.chemical_ref = em.getWz_plan();
+				this.megan_pftf =em.getTry_pft();
+				this.megan_eflai=em.getTry_ef_lai();
+			}else{
+				System.err.println("em err");
+			}
+			
+			if(para!=null){
+				this.run_pt =para.getP_run_pt();
+				this.run_ar = para.getP_run_ar();
+				this.run_megan= para.getP_run_megan();
+				this.run_superregion = para.getP_run_superregion();
+				this.run_pt_layer = para.getP_pt_layer();
+				this.itm_status = para.getP_itm_status();
+			}else{
+				System.err.println("para err");
+			}
+		}
+		
+		if(scene!=null){
+			this.scenario_file =scene.getSn_pf_scene();
+		}else{
+			System.err.println("scene err");
+		}
+
+		if(wfp!=null){
+			this.grid_cro_2d = wfp.getGrid_cro_2d();
+			this.grid_cro_3d =  wfp.getGrid_cro_3d();
+			this.met_cro_2d = wfp.getMet_cro_2d();
+			this.met_cro_3d = wfp.getMet_cro_3d();
+			this.met_dot_3d = wfp.getMet_dot_3d();
+		}else{
+			System.err.println("wfp err");
+		}
+		if(paratime!=null){
+		    this.st_date = paratime.getSt_date();
+		    this.st_time = paratime.getSt_time();
+		    this.episode = paratime.getEpisode();
+		    this.ed_date = paratime.getEd_date();
+		}else{
+			System.err.println("paratime err");
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "CaseDataModel [id=" + id + ", case_name=" + case_name

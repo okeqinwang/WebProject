@@ -24,17 +24,18 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
       <li><a href="#tab4">QA/QC</a></li>
       <li><a href="#tab5">结果输出</a></li>
     </ul>
-
     <div class="am-tabs-bd">
       <div class="am-tab-panel am-fade am-in am-active" id="tab1">
         <div class="am-g am-margin-top">
           		<table id="table_tab1"     class=" am-table am-table-striped am-table-hover table-main">
 				    <thead>
 				        <tr>
-				            <th>模拟区域</th>
-				            <th>xx1</th>
-				            <th>xx2</th>
-				            <th>xx3</th>
+				            <th>areaid</th>
+				            <th>grid_cro_2d</th>
+				            <th>grid_cro_3d</th>
+				            <th>met_cro_2d</th>
+				            <th>met_cro_3d</th>
+				             <th>met_dot_3d</th>
 				        </tr>
 				    </thead>
 				</table>
@@ -51,6 +52,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				            <th>xx1</th>
 				            <th>xx2</th>
 				            <th>xx3</th>
+				            <th>xx5</th>
+				         
 				        </tr>
 				    </thead>
 				     
@@ -108,6 +111,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
      
      </div>
      
+       <div class="am-u-sm-6am-u-sm-push-6"> 
+              <button type="button" onclick="godone()"  class="am-btn am-btn-primary">下一步</button>
+     </div>
+     
      </div>
      
 <!-- content end -->
@@ -119,13 +126,158 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </div>
 
 <script type="text/javascript">
+
+
+function godone(){
+	
+	  var projects = [];
+	  $("#table_tab2 tr").each(function() {
+			var t = $(this).children('td:first').text();
+			projects.push(t);
+		});
+	  projects.shift();
+	  console.log(projects);
+	
+	var timedata = [];
+	  $(".timepara").each(function(){
+		  timedata.push($(this).val());
+	  });
+	console.log(timedata);
+	
+	 var data = {"timepara":timedata.join(","),"projects":projects.join(",")};
+	  $.ajax({
+		  "url":"admin-test",
+		  "method":"post",
+		  "data":data,
+		  "success":function(data,status){
+			  if(status == "success"){
+				  window.location.href="admin-done";
+			  }
+		  }
+		  
+	  });
+	 // $.post('admin-para',{"listpara":data.join(","),"projects":projects.join(",")});
+	  console.log("post 完成");
+	
+	
+}
+
 function init(){
 	init_tab1();
 	init_tab2();
-	var para ="${allpara}";
-	console.log(para);
-	$("#params").append(para);
 };
+
+
+
+function init_tab1(){
+	  $('#table_tab1').DataTable({
+		   "columns": [
+	     	   	        { "data": "area_id" },
+	     	   	        {"data": "grid_cro_2d" },
+	     	   	        { "data": "grid_tro_3d" },
+	     	   	        { "data": "met_cro_2d" },
+	     	   	        { "data": "met_cro_3d" },
+	     	   	        { "data": "met_dot_3d" }
+	     	   	    ],
+	    	 "paging":   false,
+	    	  "ordering": false,
+	    	  "info":     false,
+	    	  "searching":false,
+	    	  "ajax": {
+	              "url": "getFilePathData",
+	              "dataType": "json"
+	          },
+	    	  "columnDefs":[
+	    	  {
+	              "targets": 1,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row.area_id+"1'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 2,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row.area_id+"2'/>";
+	              }
+	    	  },
+	     	  {
+	              "targets": 3,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row.area_id+"3'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 4,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row.area_id+"3'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 5,
+	              "render": function(data, type, row) {
+	            	  return  "<input type='file' id='"+row.area_id+"3'/>";
+	              }
+	    	  }
+	    
+	    
+	    	  
+	    	  ]
+	    });
+}
+function init_tab2(){
+	  $('#table_tab2').DataTable({
+		   "columns": [
+	     	   	        { "data": "area_id" },
+	     	   	        {"data": "st_date" },
+	     	   	        { "data": "st_time" },
+	     	   	        { "data": "episode" },
+	     	   	        { "data": "ed_date" }
+	     	   	    ],
+	    	 "paging":   false,
+	    	  "ordering": false,
+	    	  "info":     false,
+	    	  "searching":false,
+	    	  "stateSave":true,
+	    	  "autoWidgh":true,
+	    	  "ajax": {
+	              "url": "getTimeData",
+	              "dataType": "json"
+	          },
+	          "initComplete":function(){
+	        	  //$.datepicker.formatDate( 'yyyy-mm-dd', 'oo', '' );
+	    		  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+	    	  },
+	    	  "columnDefs":[
+	    	  {
+	              "targets": 1,
+	              "render": function(data, type, row) {
+	            	  //console.log(data);
+	            	  return " <input type='text' class='timepara datepicker am-form-field'  readonly value="+data+" id='"+row.area_id+"1'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 2,
+	              "render": function(data, type, row) {
+	            	  //console.log(data);
+	            	  return " <input type='text'  class='timepara am-form-field'  value="+ data +"  id='"+row.area_id+"2'/>";
+	              }
+	    	  },
+	    	  {
+	              "targets": 3,
+	              "render": function(data, type, row) {
+	            	  return " <input type='text'   class='timepara  am-form-field'   value="+ data +"  id='"+row.area_id+"3'/>";
+	              }
+	    	  },
+	     	  {
+	              "targets": 4,
+	              "render": function(data, type, row) {
+	            	  return " <input type='text' class='timepara datepicker am-form-field'   readonly value="+data+" id='"+row.area_id+"4'/>";
+	              }
+	    	  }
+	    	  ]
+	    	 
+	    });
+}
 
 function commitTask(){
 	console.log("commit");
@@ -144,77 +296,6 @@ function commitTask(){
 		}
 	});
 };
-
-
-
-function init_tab1(){
-	  $('#table_tab1').DataTable({
-	    	 "paging":   false,
-	    	  "ordering": false,
-	    	  "info":     false,
-	    	  "searching":false,
-	    	  "ajax": {
-	              "url": "assets/data/data.json",
-	              "dataType": "json"
-	          },
-	    	  "columnDefs":[
-	    	  {
-	              "targets": 1,
-	              "render": function(data, type, row) {
-	            	  return  "<input type='file' id='"+row[0]+"1'/>";
-	              }
-	    	  },
-	    	  {
-	              "targets": 2,
-	              "render": function(data, type, row) {
-	            	  return  "<input type='file' id='"+row[0]+"2'/>";
-	              }
-	    	  },
-	     	  {
-	              "targets": 3,
-	              "render": function(data, type, row) {
-	            	  return  "<input type='file' id='"+row[0]+"3'/>";
-	              }
-	    	  }
-	    	  
-	    	  ]
-	    });
-}
-
-
-function init_tab2(){
-	  $('#table_tab2').DataTable({
-	    	 "paging":   false,
-	    	  "ordering": false,
-	    	  "info":     false,
-	    	  "searching":false,
-	    	  "stateSave":true,
-	    	  "autoWidgh":true,
-	    	  "ajax": {
-	              "url": "assets/data/data.json",
-	              "dataType": "json"
-	          },
-	          "initComplete":function(){
-	        	  //$.datepicker.formatDate( 'yyyy-mm-dd', 'oo', '' );
-	    		  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
-	    	  },
-	    	  "columnDefs":[
-	    	  {
-	              "targets": 1,
-	              "render": function(data, type, row) {
-	            	  return " <input type='text' class='datepicker am-form-field'  readonly id='"+row[0]+"1'/>";
-	              }
-	    	  },
-	     	  {
-	              "targets": 3,
-	              "render": function(data, type, row) {
-	            	  return " <input type='text' class='datepicker am-form-field'  readonly id='"+row[0]+"3'/>";
-	              }
-	    	  }
-	    	  ]
-	    	 
-	    });
-}
 
 </script>
 </body>

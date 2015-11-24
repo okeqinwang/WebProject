@@ -1,6 +1,12 @@
 package com.eliteams.quick4j.web.model;
 
-public class ParamModel {
+import java.io.Serializable;
+
+public class ParamModel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7273739388902038649L;
 	private String p_area;
 	private String p_run_pt;
 	private String p_run_ar;
@@ -9,6 +15,21 @@ public class ParamModel {
 	private String p_run_ar_layer;
 	private String p_pt_layer;
 	private String p_itm_status;
+	
+	
+	//气象路径 归入到参数模块
+	private String  grid_cro_2d;
+	private String  grid_cro_3d;
+	private String  met_cro_2d;
+	private String  met_cro_3d;
+	private String  met_dot_3d;
+	
+	
+	//时间参数归入到参数模块
+	private String st_date;
+	private String st_time;
+	private String episode;
+	private String ed_date;
 	
 	
 	public String getP_area() {
@@ -67,6 +88,60 @@ public class ParamModel {
 	}
 	
 	
+	public String getGrid_cro_2d() {
+		return grid_cro_2d;
+	}
+	public void setGrid_cro_2d(String grid_cro_2d) {
+		this.grid_cro_2d = grid_cro_2d;
+	}
+	public String getGrid_cro_3d() {
+		return grid_cro_3d;
+	}
+	public void setGrid_cro_3d(String grid_cro_3d) {
+		this.grid_cro_3d = grid_cro_3d;
+	}
+	public String getMet_cro_2d() {
+		return met_cro_2d;
+	}
+	public void setMet_cro_2d(String met_cro_2d) {
+		this.met_cro_2d = met_cro_2d;
+	}
+	public String getMet_cro_3d() {
+		return met_cro_3d;
+	}
+	public void setMet_cro_3d(String met_cro_3d) {
+		this.met_cro_3d = met_cro_3d;
+	}
+	public String getMet_dot_3d() {
+		return met_dot_3d;
+	}
+	public void setMet_dot_3d(String met_dot_3d) {
+		this.met_dot_3d = met_dot_3d;
+	}
+	public String getSt_date() {
+		return st_date;
+	}
+	public void setSt_date(String st_date) {
+		this.st_date = st_date;
+	}
+	public String getSt_time() {
+		return st_time;
+	}
+	public void setSt_time(String st_time) {
+		this.st_time = st_time;
+	}
+	public String getEpisode() {
+		return episode;
+	}
+	public void setEpisode(String episode) {
+		this.episode = episode;
+	}
+	public String getEd_date() {
+		return ed_date;
+	}
+	public void setEd_date(String ed_date) {
+		this.ed_date = ed_date;
+	}
 	public ParamModel(String p_area, String p_run_pt, String p_run_ar,
 			String p_run_megan, String p_run_superregion,
 			String p_run_ar_layer, String p_pt_layer, String p_itm_status) {

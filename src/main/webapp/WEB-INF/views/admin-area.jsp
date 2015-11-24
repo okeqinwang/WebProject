@@ -92,10 +92,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 <script type="text/javascript">
 function init(){
 	var flag = "${flag}";
-	if(flag == 1){
-		$("#area_in").val("${m.area_in}");
-		$("#area_simi").val("${m.area_simi}");
-	}
+	console.log(flag);
+
 }
 </script>
 </body>

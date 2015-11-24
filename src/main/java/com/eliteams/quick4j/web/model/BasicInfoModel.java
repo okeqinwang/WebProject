@@ -1,12 +1,21 @@
 package com.eliteams.quick4j.web.model;
 
+import java.io.Serializable;
+
 /**
  * 基本信息
  * @author spark
  *
  */
-public class BasicInfoModel {
+public class BasicInfoModel implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5839938166241883493L;
+	/**
+	 * 
+	 */
 	private String basic_casename;
 	private String basic_casetype;
 	private String basic_content;
