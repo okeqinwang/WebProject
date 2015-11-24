@@ -25,7 +25,6 @@ import com.eliteams.quick4j.web.model.ParamListForm;
 import com.eliteams.quick4j.web.model.ParamModel;
 import com.eliteams.quick4j.web.model.SceneModel;
 import com.eliteams.quick4j.web.model.TestModel;
-import com.eliteams.quick4j.web.model.User;
 import com.eliteams.quick4j.web.model.WeatherFilePath;
 import com.eliteams.quick4j.web.service.CaseDataService;
 
@@ -244,6 +243,11 @@ public class CaseController {
 		if(data!=null && projects!=null){
 			//service doing 
 			List<ParaTimeModel> params = caseService.initParaTimeModel(data, projects);
+			System.out.println("initParaTimeModel........");
+			for(ParaTimeModel p :params){
+				System.out.println(p.toString());
+			}
+			
 			session.setAttribute("paramtimelist", params);
 		}
 		System.out.println("准备跳转到done页面");
@@ -265,6 +269,7 @@ public class CaseController {
 		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
 		List<ParaTimeModel> ptm = (List<ParaTimeModel>) session.getAttribute("paramtimelist");
 		List<WeatherFilePath> wfp = (List<WeatherFilePath>) session.getAttribute("filepathlist");
+		List<ParamModel> params =(List<ParamModel>) session.getAttribute("paramlist");
 		
 		if(wfp ==null){
 			wfp = new ArrayList<WeatherFilePath>(ptm.size());
@@ -281,7 +286,7 @@ public class CaseController {
 			return msg;
 		}else{
 			
-			List<CaseDataModel> listcasemodel = caseService.assemCaseDataModel(sm,ptm,wfp);
+			List<CaseDataModel> listcasemodel = caseService.assemCaseDataModel(sm,ptm,wfp,params);
 			
 			boolean status = caseService.saveCaseData(listcasemodel);
 			

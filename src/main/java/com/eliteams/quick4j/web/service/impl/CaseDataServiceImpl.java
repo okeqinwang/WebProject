@@ -131,7 +131,7 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 	}
 
 	@Override
-	public List<CaseDataModel> assemCaseDataModel(CaseDataSessionModel sm,List<ParaTimeModel > ptm,List<WeatherFilePath> wfp) {
+	public List<CaseDataModel> assemCaseDataModel(CaseDataSessionModel sm,List<ParaTimeModel > ptm,List<WeatherFilePath> wfp,List<ParamModel> para) {
 			
 		List<AreaModel> arealist = sm.getArealist();
 		
@@ -139,7 +139,7 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 		SceneModel scene =sm.getScene();
 		List<CaseDataModel> res = new ArrayList<CaseDataModel>(arealist.size());
 		for(int i=0;i<arealist.size();i++){
-			CaseDataModel  cdm = new CaseDataModel(basic, arealist.get(i), scene,ptm.get(i),wfp.get(i));
+			CaseDataModel  cdm = new CaseDataModel(basic, arealist.get(i), scene,ptm.get(i),wfp.get(i),para.get(i));
 			res.add(cdm);
 			System.out.println(cdm.toString());
 		}

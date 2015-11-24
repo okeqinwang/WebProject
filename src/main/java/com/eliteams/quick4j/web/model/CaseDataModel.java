@@ -387,7 +387,7 @@ public class CaseDataModel implements Serializable {
 		super();
 	}
 	
-	public CaseDataModel(BasicInfoModel basic,AreaModel area,SceneModel scene,ParaTimeModel paratime,WeatherFilePath wfp){
+	public CaseDataModel(BasicInfoModel basic,AreaModel area,SceneModel scene,ParaTimeModel paratime,WeatherFilePath wfp,ParamModel para){
 		
 		
 		if(basic!=null){
@@ -409,9 +409,10 @@ public class CaseDataModel implements Serializable {
 				this.chemical_ref = em.getWz_plan();
 				this.megan_pftf =em.getTry_pft();
 				this.megan_eflai=em.getTry_ef_lai();
+			}else{
+				System.err.println("em err");
 			}
 			
-			ParamModel para = area.getParam();
 			if(para!=null){
 				this.run_pt =para.getP_run_pt();
 				this.run_ar = para.getP_run_ar();
@@ -419,11 +420,15 @@ public class CaseDataModel implements Serializable {
 				this.run_superregion = para.getP_run_superregion();
 				this.run_pt_layer = para.getP_pt_layer();
 				this.itm_status = para.getP_itm_status();
+			}else{
+				System.err.println("para err");
 			}
 		}
 		
 		if(scene!=null){
 			this.scenario_file =scene.getSn_pf_scene();
+		}else{
+			System.err.println("scene err");
 		}
 
 		if(wfp!=null){
@@ -432,12 +437,16 @@ public class CaseDataModel implements Serializable {
 			this.met_cro_2d = wfp.getMet_cro_2d();
 			this.met_cro_3d = wfp.getMet_cro_3d();
 			this.met_dot_3d = wfp.getMet_dot_3d();
+		}else{
+			System.err.println("wfp err");
 		}
 		if(paratime!=null){
 		    this.st_date = paratime.getSt_date();
 		    this.st_time = paratime.getSt_time();
 		    this.episode = paratime.getEpisode();
 		    this.ed_date = paratime.getEd_date();
+		}else{
+			System.err.println("paratime err");
 		}
 	}
 	
