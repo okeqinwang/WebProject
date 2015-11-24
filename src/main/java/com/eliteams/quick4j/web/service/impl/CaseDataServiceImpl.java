@@ -107,10 +107,16 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 	}
 
 	@Override
-	public boolean saveCaseData() {
-		
-//		this.assemCaseDataModel(null);
-		return false;
+	public boolean saveCaseData(List<CaseDataModel> listcasemodel) {
+		try{
+			for(CaseDataModel cdm : listcasemodel){
+				casedataMapper.insert(cdm);
+			}
+		}catch(Exception e){
+			System.out.println(e.toString());
+			return false;
+		}
+		return true;
 	}
 	
 	

@@ -19,6 +19,6 @@ public   interface CaseDataService extends GenericService<CaseDataModel, Long> {
 	
 	public List<CaseDataModel> assemCaseDataModel(CaseDataSessionModel sm,List<ParaTimeModel > ptm,List<WeatherFilePath> wfp) ;
 	
-	public boolean saveCaseData();
+	public boolean saveCaseData(List<CaseDataModel> listcasemodel) ;
 	
 }

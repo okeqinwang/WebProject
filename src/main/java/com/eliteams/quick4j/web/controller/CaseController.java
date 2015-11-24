@@ -265,6 +265,14 @@ public class CaseController {
 		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
 		List<ParaTimeModel> ptm = (List<ParaTimeModel>) session.getAttribute("paramtimelist");
 		List<WeatherFilePath> wfp = (List<WeatherFilePath>) session.getAttribute("filepathlist");
+		
+		if(wfp ==null){
+			wfp = new ArrayList<WeatherFilePath>(ptm.size());
+			for(int i = 0 ;i<ptm.size();i++){
+				wfp.add(new WeatherFilePath());
+			}
+		}
+		
 		int  sm_status = caseService.checkCaseDataSession(sm);
 		
 		if(sm_status != 0){
@@ -275,17 +283,10 @@ public class CaseController {
 			
 			List<CaseDataModel> listcasemodel = caseService.assemCaseDataModel(sm,ptm,wfp);
 			
-			boolean status = caseService.saveCaseData();
-			CaseDataModel m = new CaseDataModel();
-			m.setId("4");
-			m.setCase_name("case name");
-			m.setArinv_inventory("dddd");
-			List<CaseDataModel> list= caseService.selectList();
-			if(list!=null && list.size()>0){
-				for(CaseDataModel mm : list){
-					System.out.println(mm.getId()+"\t"+mm.getCase_name()+mm.toString());
-				}
-			}
+			boolean status = caseService.saveCaseData(listcasemodel);
+			
+			System.out.println("success save data size =="+listcasemodel.size());
+			
 			if(status ==true){
 				msg.put("msg", "恭喜，数据保存成功");
 			}else{
