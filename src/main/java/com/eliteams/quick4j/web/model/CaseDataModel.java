@@ -387,7 +387,7 @@ public class CaseDataModel implements Serializable {
 		super();
 	}
 	
-	public CaseDataModel(BasicInfoModel basic,AreaModel area,SceneModel scene){
+	public CaseDataModel(BasicInfoModel basic,AreaModel area,SceneModel scene,ParaTimeModel paratime,WeatherFilePath wfp){
 		
 		
 		this.case_name=basic.getBasic_casename();
@@ -417,17 +417,17 @@ public class CaseDataModel implements Serializable {
 	    this.itm_status = para.getP_itm_status();
 	    
 	    
-	    this.grid_cro_2d = para.getGrid_cro_2d();
-	    this.grid_cro_3d =  para.getGrid_cro_3d();
-	    this.met_cro_2d = para.getMet_cro_2d();
-	    this.met_cro_3d = para.getMet_cro_3d();
-	    this.met_dot_3d = para.getMet_dot_3d();
+	    this.grid_cro_2d = wfp.getGrid_cro_2d();
+	    this.grid_cro_3d =  wfp.getGrid_cro_3d();
+	    this.met_cro_2d = wfp.getMet_cro_2d();
+	    this.met_cro_3d = wfp.getMet_cro_3d();
+	    this.met_dot_3d = wfp.getMet_dot_3d();
 	    
-	    this.st_date = para.getSt_date();
-	    this.st_time = para.getSt_time();
+	    this.st_date = paratime.getSt_date();
+	    this.st_time = paratime.getSt_time();
 	    
-	    this.episode = para.getEpisode();
-	    this.ed_date = para.getEd_date();
+	    this.episode = paratime.getEpisode();
+	    this.ed_date = paratime.getEd_date();
 	    
 	    
 	}

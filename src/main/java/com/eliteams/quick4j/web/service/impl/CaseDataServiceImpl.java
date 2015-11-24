@@ -17,6 +17,7 @@ import com.eliteams.quick4j.web.model.CaseDataSessionModel;
 import com.eliteams.quick4j.web.model.ParaTimeModel;
 import com.eliteams.quick4j.web.model.ParamModel;
 import com.eliteams.quick4j.web.model.SceneModel;
+import com.eliteams.quick4j.web.model.WeatherFilePath;
 import com.eliteams.quick4j.web.service.CaseDataService;
 
 /**
@@ -108,27 +109,38 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 	@Override
 	public boolean saveCaseData() {
 		
-		this.assemCaseDataModel(null);
+//		this.assemCaseDataModel(null);
 		return false;
 	}
 	
-	//assemble object from session data
-	private List<CaseDataModel> assemCaseDataModel(CaseDataSessionModel model){
-		List<CaseDataModel> res = null;
-		if(model  == null){
-			return null; 
+	
+
+	@Override
+	public int checkCaseDataSession(CaseDataSessionModel sm) {
+		
+		if(sm !=null && sm.getArealist()!=null && sm.getArealist().size()>0 && sm.getBasic()!=null && sm.getScene()!=null){
+			return 0;
 		}
-		List<AreaModel> arealist = model.getArealist();
-		BasicInfoModel basic = model.getBasic();
-		SceneModel scene = model.getScene();
-		int size = arealist.size();
-		res = new ArrayList<CaseDataModel>(size);
-		for(int i=0;i<size;i++){
-			CaseDataModel data = new CaseDataModel(basic,arealist.get(i),scene);
-			res.add(data);
+		return -1;
+	}
+
+	@Override
+	public List<CaseDataModel> assemCaseDataModel(CaseDataSessionModel sm,List<ParaTimeModel > ptm,List<WeatherFilePath> wfp) {
+			
+		List<AreaModel> arealist = sm.getArealist();
+		
+		BasicInfoModel basic = sm.getBasic();
+		SceneModel scene =sm.getScene();
+		List<CaseDataModel> res = new ArrayList<CaseDataModel>(arealist.size());
+		for(int i=0;i<arealist.size();i++){
+			CaseDataModel  cdm = new CaseDataModel(basic, arealist.get(i), scene,ptm.get(i),wfp.get(i));
+			res.add(cdm);
+			System.out.println(cdm.toString());
 		}
 		return res;
 	}
+	
+	
 	
 	
 

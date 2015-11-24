@@ -27,14 +27,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
           <label for="case-name" class="am-u-sm-2 am-form-label">排放源输入</label>
             
             <select  class="am-u-sm-4 "  id="area_id" name="area_id"  >
-              <option value="1">区域一</option>
-              <option value="2">选项二</option>
-              <option value="3">选项三</option>
+              <option value="hello">hello</option>
+              <option value="world">world</option>
+              <option value="java">java</option>
             </select>
            </div>
            
         <div class="am-u-sm-6">
-         <button type="button" class="am-btn ">配置下一区域</button>
+         <button type="button"  onclick="savecase()" class="am-btn ">保存当前区域配置</button>
          <button type="button" class="am-btn ">配置下一区域</button>
         </div>
     </div>
@@ -439,7 +439,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 
   <div class="am-margin">
-    <button type="button"   onclick="gocase()"  class="am-btn am-btn-primary am-btn-xs">下一步</button>
+    <a type="button"  href="admin-case"  class="am-btn am-btn-primary am-btn-xs">下一步</a>
     </div>
 </div>
 </div>
@@ -451,37 +451,66 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 </form>
 <script type="text/javascript">
+
+
 function init(){
-	var flag = "${flag}";
-	console.log(flag);
-	if(flag == 1){
-		 console.log("come in");
-		$("#area_id").val("${m.area_id}");
-		$("#pf_qd").val("${m.pf_qd}");
-		$("#pf_gxl").val("${m.pf_gxl}");
-		
-		$("#sj_plan").val("${m.sj_plan}");
-		$("#sj_pf_type").val("${m.sj_pf_type}");
-		
-		$("#kj_plan").val("${m.kj_plan}");
-		$("#kj_area").val("${m.kj_area}");
-		$("#kj_code").val("${m.kj_code}");
-		
-		$("#wz_plan").val("${m.wz_plan}");
-		$("#wz_jz").val("${m.wz_jz}");
-		$("#wz_wrw").val("${m.wz_wrw}");
-		$("#wz_type").val("${m.wz_type}");
-		
-		$("#try_pft").val("${m.try_pft}");
-		$("#try_ef_lai").val("${m.try_ef_lai}");
-		$("#try_show").val("${m.try_show}");
-	}
+	var areaname = $("#area_id option:selected").text();
+	getEmission(areaname);
 	
+	$("#area_id").change(function(){
+		var areaname = $("#area_id option:selected").text();
+		getEmission(areaname);
+	});
 };
-function gocase(){
-	console.log("gocase");
+
+
+function savecase(){
 	$("#myform").submit();
 };
+
+function getEmission(areaname){
+	$.ajax({
+		"url":"getEmissonByAreaName",
+		"type":"get",
+		"data" :{"areaname":areaname},
+		"success":function(data){
+			initdata(data);
+		},
+		"error":function(){
+			console.log("bad request");
+		}
+	});
+}
+
+function initdata(data){
+	//do in here
+	var flag = data.flag;
+	var m = data.data;
+	if(flag == 1){
+		$("#area_id").val(m.area_id);
+		$("#pf_qd").val(m.pf_qd);
+		$("#pf_gxl").val(m.pf_gxl);
+		
+		$("#sj_plan").val(m.sj_plan);
+		$("#sj_pf_type").val(m.sj_pf_type);
+		
+		$("#kj_plan").val(m.kj_plan);
+		$("#kj_area").val(m.kj_area);
+		$("#kj_code").val(m.kj_code);
+		
+		$("#wz_plan").val(m.wz_plan);
+		$("#wz_jz").val(m.wz_jz);
+		$("#wz_wrw").val(m.wz_wrw);
+		$("#wz_type").val(m.wz_type);
+		
+		$("#try_pft").val(m.try_pft);
+		$("#try_ef_lai").val(m.try_ef_lai);
+		$("#try_show").val(m.try_show);
+	}
+	
+}
+
+
 </script>
 
 

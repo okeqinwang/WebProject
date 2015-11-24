@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eliteams.quick4j.web.model.AreaModel;
+import com.eliteams.quick4j.web.model.CaseDataSessionModel;
+import com.eliteams.quick4j.web.model.EmissionModel;
 import com.eliteams.quick4j.web.model.ParaTimeModel;
 import com.eliteams.quick4j.web.model.ParamModel;
 import com.eliteams.quick4j.web.model.WeatherFilePath;
@@ -24,6 +27,7 @@ public class TableDataController {
 	@ResponseBody
 	public Map<String,Object>  getParaData(HttpSession session){
 		Map<String,Object> msg = new HashMap<String, Object>();
+
 		
 		List<ParamModel> res = (List<ParamModel>) session.getAttribute("paramlist");
 		if(res !=null && res.size()>0){
@@ -33,7 +37,12 @@ public class TableDataController {
 			return msg;
 		}else{
 			//第一次生成，创建新的对象
-			List<AreaModel> areas = (List<AreaModel>) session.getAttribute("arealist");
+			CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+			List<AreaModel> areas  =null;
+			if(sm!=null){
+				areas= sm.getArealist();
+			}
+			
 			if(areas!=null && areas.size()>0){
 				res = new ArrayList<ParamModel>();
 				for(int i=0;i<areas.size();i++){
@@ -65,7 +74,11 @@ public class TableDataController {
 			return msg;
 		}else{
 			//第一次生成，创建新的对象
-			List<AreaModel> areas = (List<AreaModel>) session.getAttribute("arealist");
+			CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+			List<AreaModel> areas = null;
+			if(sm!=null){
+				areas = sm.getArealist();
+			}
 			if(areas!=null && areas.size()>0){
 				res = new ArrayList<WeatherFilePath>();
 				for(int i=0;i<areas.size();i++){
@@ -96,9 +109,11 @@ public class TableDataController {
 			msg.put("data", res);
 			return msg;
 		}else{
-			//第一次生成，创建新的对象
-			System.out.println("第一次创建");
-			List<AreaModel> areas = (List<AreaModel>) session.getAttribute("arealist");
+			CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+			List<AreaModel> areas = null;
+			if(sm!=null){
+				areas = sm.getArealist();
+			}
 			if(areas!=null && areas.size()>0){
 				res = new ArrayList<ParaTimeModel>();
 				for(int i=0;i<areas.size();i++){
@@ -116,6 +131,34 @@ public class TableDataController {
 	}
 	
 	
-	
+	 
+	//排放源输入  获取单个区域的相关信息
+		@RequestMapping(value="getEmissonByAreaName")
+		@ResponseBody
+		public Map<String,Object>  getEmissonByAreaName(HttpSession session,HttpServletRequest request){
+			Map<String,Object> msg = new HashMap<String, Object>();
+			String areaname = request.getParameter("areaname");
+			System.out.println(areaname);
+			EmissionModel em = null;
+			if(areaname!=null && !"".equals(areaname)){
+				CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+		    	if(sm!=null  ){
+		    		List<AreaModel>  arealist =sm.getArealist();
+		    			for(AreaModel  am : arealist){
+		    				if(areaname.equals(am.getArea_in())){
+		    					em=am.getEmission();
+		    					msg.put("flag", 1);
+		    					msg.put("data", em);
+		    				}
+			    		}
+		    	}
+			}else{
+				msg.put("flag", 0);
+				msg.put("msg", "参数异常");
+			}
+			return msg;
+		}
+		
+
 	
 }

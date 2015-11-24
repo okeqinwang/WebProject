@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eliteams.quick4j.web.model.AreaModel;
 import com.eliteams.quick4j.web.model.BasicInfoModel;
 import com.eliteams.quick4j.web.model.CaseDataModel;
+import com.eliteams.quick4j.web.model.CaseDataSessionModel;
 import com.eliteams.quick4j.web.model.EmissionModel;
 import com.eliteams.quick4j.web.model.ParaTimeModel;
 import com.eliteams.quick4j.web.model.ParamListForm;
@@ -25,6 +26,7 @@ import com.eliteams.quick4j.web.model.ParamModel;
 import com.eliteams.quick4j.web.model.SceneModel;
 import com.eliteams.quick4j.web.model.TestModel;
 import com.eliteams.quick4j.web.model.User;
+import com.eliteams.quick4j.web.model.WeatherFilePath;
 import com.eliteams.quick4j.web.service.CaseDataService;
 
 
@@ -36,73 +38,122 @@ public class CaseController {
 	
 	// step 1 
     @RequestMapping(value="index",method=RequestMethod.GET)
-    public String  index(Model model,HttpSession session){
-    	BasicInfoModel m = (BasicInfoModel) session.getAttribute("basic");
-		User u = (User) session.getAttribute("userInfo");
-		if(u!=null){
-	    	model.addAttribute("username", u.getUsername());
-			System.out.println(u.toString());
-		}else{
-			System.out.println("session lose........");
-		}
-		String task_status = (String) session.getAttribute("task_status");
-//		if(task_status!=null && !task_status.equals("finish")){
-//			model.addAttribute("task_status", task_status);
-//			return "showlog";
-//		}
-		System.out.println("index page");
-    	model.addAttribute("m", m);
-    	model.addAttribute("flag", m==null?0:1);
-    	return "index";
+    public void  index(Model model,HttpSession session){
+    	CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+    	if(sm!=null){
+    		BasicInfoModel m = sm.getBasic();
+    		model.addAttribute("m", m);
+    		model.addAttribute("flag", m==null?0:1);
+    	}
     }
-
     
 	@RequestMapping(value="index",method=RequestMethod.POST )
 	public String go_area(BasicInfoModel m,HttpSession session){
-		session.setAttribute("basic", m);
-		return "admin-area";
+		CaseDataSessionModel  sm = new CaseDataSessionModel();
+		sm.setBasic(m);
+		session.setAttribute("sm", sm);
+		return "redirect:/admin-area";
 	}
 	
 	//step 2
 	@RequestMapping(value="admin-area" )
 	public String area(Model model,HttpSession session){
+		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+    	if(sm!=null){
+    		List<AreaModel>  m =sm.getArealist();
+            model.addAttribute("m",m); 
+            model.addAttribute("flag", m==null?0:1);
+    	}else{
+    		  model.addAttribute("flag", 0);
+    	}
     	
-		AreaModel m =(AreaModel) session.getAttribute("area");
-        model.addAttribute("m",m); 
-        model.addAttribute("flag", m==null?0:1);
-		return "admin-area";
+    	return "admin-area";
 	}
 	
 	@RequestMapping(value="admin-area",method=RequestMethod.POST )
 	public String go_in(AreaModel m,HttpSession session){
+		System.out.println("生成区域对象，暂时模拟 三个对象");
 		System.out.println(m.toString());
 		//模拟区域对象的数据
 		List<AreaModel> list = new ArrayList<AreaModel>();
 		list.add(new AreaModel("hello","1"));
-		list.add(new AreaModel("wold","2"));
+		list.add(new AreaModel("world","2"));
 		list.add(new AreaModel("java","3"));
-		
-		session.setAttribute("arealist", list);
-		return "admin-in";
+		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+    	if(sm!=null){
+    		if(sm.getArealist()==null){
+    			sm.setArealist(list);
+    		}
+    		session.setAttribute("sm", sm);
+    		CaseDataSessionModel tsm = (CaseDataSessionModel) session.getAttribute("sm");
+    		System.out.println("保存在session中的区域个数");
+    		System.out.println(tsm.getArealist().size());
+    	}else{
+    		return "redirect:/index";
+    	}
+    	return "redirect:/admin-in";
 	}
 	
 	//step 3
 	
 	@RequestMapping(value="admin-in" )
 	public String in(Model model,HttpSession session){
-		EmissionModel m =(EmissionModel) session.getAttribute("emission");
-//		System.out.println(m.toString());
-		model.addAttribute("flag", m==null?0:1);
-        model.addAttribute("m",m); 
-        
-		return "admin-in";
+		
+//		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+//    	if(sm!=null  ){
+//    		List<AreaModel>  arealist =sm.getArealist();
+//    		List<EmissionModel> emlist = new ArrayList<EmissionModel>(arealist.size());
+//    		for(AreaModel  am : arealist){
+//    			if(am.getEmission()!=null){
+//    				emlist.add(am.getEmission());
+//    				System.out.println("admin-in-get"+am.getEmission().toString());
+//    			}
+//    		}
+//            model.addAttribute("m",emlist); 
+//            System.out.println(emlist.size());
+//            model.addAttribute("flag", emlist==null?0:1);
+//    	}else{
+//    		 // model.addAttribute("flag", 0);
+//    	}
+    	return "admin-in";
 	}
+	
+	
+	
+	
 	
 	@RequestMapping(value="admin-in" ,method=RequestMethod.POST)
 	public String go_case(EmissionModel m,HttpSession session){
-		System.out.println(m.toString());
-		session.setAttribute("emission", m);
-		return "admin-case";
+
+		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+    	if(sm!=null){
+    		List<AreaModel> arealist = sm.getArealist();
+    		if(arealist!=null && arealist.size()>0){
+    			for(AreaModel am:arealist){
+        			
+        			if(m.getArea_id().equals(am.getArea_in())){
+        				am.setEmission(m);
+        			}
+        		}
+//    			sm.setArealist(arealist);
+        		session.setAttribute("sm", sm);
+        		
+        		for(AreaModel amm:sm.getArealist()){
+        			if(amm.getEmission()!=null){
+        				System.out.println(amm.getEmission().toString());
+        			}
+        		}
+        		
+    		}else{
+    			System.out.println("没有获取到区域数据");
+    			return "redirect:/admin-area";
+    		}
+    		
+    	}else{
+    		System.out.println("还没有创建案例");
+    		return "redirect:/index";
+    	}
+    	return "redirect:/admin-in";
 	}
 	
 	//step 4
@@ -110,18 +161,28 @@ public class CaseController {
 	
 	@RequestMapping(value="admin-case" )
 	public String showcase(Model model,HttpSession session){
-		SceneModel m =(SceneModel) session.getAttribute("scene");
-        model.addAttribute("m",m);
-        model.addAttribute("flag", m==null?0:1);
+		
+		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+    	if(sm!=null){
+    		SceneModel  m =sm.getScene();
+            model.addAttribute("m",m); 
+            model.addAttribute("flag", m==null?0:1);
+    	}else{
+    		  model.addAttribute("flag", 0);
+    	}
 		return "admin-case";
 	}
 	
 	@RequestMapping(value="admin-case" ,method=RequestMethod.POST)
 	public String go_para(SceneModel m,HttpSession session,Model model){
-		System.out.println(m.toString());
-		session.setAttribute("scene", m);
-
-		return "admin-para";
+		
+		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+		if(sm!=null){
+			sm.setScene(m);
+			return "admin-para";
+		}else{
+			return "redirect:/index";
+		}
 	}
 	
 	//step 5 
@@ -143,6 +204,8 @@ public class CaseController {
 		if(data!=null && projects!=null){
 			//service doing 
 			List<ParamModel> params = caseService.initParamModel(data, projects);
+			
+			
 			session.setAttribute("paramlist", params);
 		}
 		System.out.println("准备跳转到test页面");
@@ -199,27 +262,38 @@ public class CaseController {
 	@ResponseBody
 	public Map<String,Object> saveResult(HttpSession session){
 		Map<String,Object> msg = new HashMap<String, Object>();
+		CaseDataSessionModel sm = (CaseDataSessionModel) session.getAttribute("sm");
+		List<ParaTimeModel> ptm = (List<ParaTimeModel>) session.getAttribute("paramtimelist");
+		List<WeatherFilePath> wfp = (List<WeatherFilePath>) session.getAttribute("filepathlist");
+		int  sm_status = caseService.checkCaseDataSession(sm);
 		
-		BasicInfoModel basic = (BasicInfoModel) session.getAttribute("basic");
-//		ParamModel param = (ParamModel) session.getAttribute("paramlist");
-		boolean status = caseService.saveCaseData();
-		CaseDataModel m = new CaseDataModel();
-		m.setId("4");
-		m.setCase_name("case name");
-		m.setArinv_inventory("dddd");
-//		caseService.insert(m);
-		List<CaseDataModel> list= caseService.selectList();
-		if(list!=null && list.size()>0){
-			for(CaseDataModel mm : list){
-				System.out.println(mm.getId()+"\t"+mm.getCase_name()+mm.toString());
-			}
-		}
-		if(status ==true){
-			msg.put("msg", "恭喜，数据保存成功");
+		if(sm_status != 0){
+			msg.put("msg", "数据不完整，请仔细检查参数是否设置正确");
+			msg.put("flag","0");
+			return msg;
 		}else{
-			msg.put("msg", "ooh,数据保存遇到问题，联系管理员");
+			
+			List<CaseDataModel> listcasemodel = caseService.assemCaseDataModel(sm,ptm,wfp);
+			
+			boolean status = caseService.saveCaseData();
+			CaseDataModel m = new CaseDataModel();
+			m.setId("4");
+			m.setCase_name("case name");
+			m.setArinv_inventory("dddd");
+			List<CaseDataModel> list= caseService.selectList();
+			if(list!=null && list.size()>0){
+				for(CaseDataModel mm : list){
+					System.out.println(mm.getId()+"\t"+mm.getCase_name()+mm.toString());
+				}
+			}
+			if(status ==true){
+				msg.put("msg", "恭喜，数据保存成功");
+			}else{
+				msg.put("msg", "ooh,数据保存遇到问题，联系管理员");
+			}
+			return msg;
+			
 		}
-		return msg;
 	}
 	
 }

@@ -151,7 +151,7 @@ function godone(){
 		  "data":data,
 		  "success":function(data,status){
 			  if(status == "success"){
-				  //window.location.href="admin-done";
+				  window.location.href="admin-done";
 			  }
 		  }
 		  
@@ -251,21 +251,27 @@ function init_tab2(){
 	    	  {
 	              "targets": 1,
 	              "render": function(data, type, row) {
-	            	  console.log(data);
-	            	  return " <input type='text' class='timepara datepicker am-form-field'  readonly id='"+row.area_id+"1'/>";
+	            	  //console.log(data);
+	            	  return " <input type='text' class='timepara datepicker am-form-field'  readonly value="+data+" id='"+row.area_id+"1'/>";
 	              }
 	    	  },
-	    	
+	    	  {
+	              "targets": 2,
+	              "render": function(data, type, row) {
+	            	  //console.log(data);
+	            	  return " <input type='text'  class='timepara am-form-field'  value="+ data +"  id='"+row.area_id+"2'/>";
+	              }
+	    	  },
 	    	  {
 	              "targets": 3,
 	              "render": function(data, type, row) {
-	            	  return " <input type='text'   class='timepara  am-form-field'   vaule="+ data +"  id='"+row.area_id+"3'/>";
+	            	  return " <input type='text'   class='timepara  am-form-field'   value="+ data +"  id='"+row.area_id+"3'/>";
 	              }
 	    	  },
 	     	  {
 	              "targets": 4,
 	              "render": function(data, type, row) {
-	            	  return " <input type='text' class='timepara datepicker am-form-field'  readonly id='"+row.area_id+"4'/>";
+	            	  return " <input type='text' class='timepara datepicker am-form-field'   readonly value="+data+" id='"+row.area_id+"4'/>";
 	              }
 	    	  }
 	    	  ]
