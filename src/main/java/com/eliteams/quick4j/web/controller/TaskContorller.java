@@ -36,7 +36,11 @@ public class TaskContorller {
 //	
 	@RequestMapping(value="checkStatus",method=RequestMethod.GET)
 	public String checkStatus(Model model,HttpSession session ){
-		String status = (String) session.getAttribute("stop");
+		User usersession =(User)session.getAttribute("userInfo");
+		User  user = userService.selectById(usersession.getId());
+		String status = user.getTask_state();
+		session.setAttribute("stop", status);
+		
 		if(status !=null){
 			if( "1".equals(status)){
 				return "redirect:/index";
@@ -91,36 +95,43 @@ public class TaskContorller {
 		if(file.exists()){
 			file.delete();
 		}
-		// remove it when apply the real sysytem
-		List<String> cmds = new ArrayList<String>();
-		cmds.add("sh");
-		cmds.add("-c");
-		cmds.add("ping -c 50  baidu.com  ");
-		String []  cmd = cmds.toArray(new String [cmds.size()]);
-		int status = RunShellUtil.executeCommand2File(cmd, file);
-//		model.addAttribute("result", "1");
-		if(status == 0){
-			//save to mysql
-			user.setTask_state("1");
-			userService.updateTaskState(user);
-//			stop="1";
-			System.err.println("任务执行完成");
-			System.err.println("任务执行完成");
-			System.err.println("任务执行完成");
-			System.err.println("任务执行完成");
-			System.err.println("任务执行完成");
-			
-			session.setAttribute("stop", "1");
-			session.setAttribute("havecommit", "0");
-			msg.put("stop", "1");
-			msg.put("status", "success");
-			msg.put("msg", "恭喜，任务执行成功");
-		}else{
-			session.setAttribute("stop", "1");
-			msg.put("stop", "1");
-			msg.put("status", "failed");
-			msg.put("msg", "oohh，任务提交异常");
-		}
+		
+		Thread thread = new Thread(){
+			public  void run(){
+				System.out.println(Thread.currentThread().getName());
+				List<String> cmds = new ArrayList<String>();
+				cmds.add("sh");
+				cmds.add("-c");
+				cmds.add("ping -c 50 baidu.com ");
+				String []  cmd = cmds.toArray(new String [cmds.size()]);
+				
+				int status = RunShellUtil.executeCommand2File(cmd, file);
+//				model.addAttribute("result", "1");
+				if(status == 0){
+					//save to mysql
+					user.setTask_state("1");
+					userService.updateTaskState(user);
+//					stop="1";
+					System.err.println("任务执行完成");
+					System.err.println("任务执行完成");
+					System.err.println("任务执行完成");
+					System.err.println("任务执行完成");
+					System.err.println("任务执行完成");
+					
+					session.setAttribute("stop", "1");
+					session.setAttribute("havecommit", "0");
+					msg.put("stop", "1");
+					msg.put("status", "success");
+					msg.put("msg", "恭喜，任务执行成功");
+				}else{
+					session.setAttribute("stop", "1");
+					msg.put("stop", "1");
+					msg.put("status", "failed");
+					msg.put("msg", "oohh，任务提交异常");
+				}
+			}
+		};
+		thread.run();
 		return msg;
 	}
 		
@@ -157,7 +168,7 @@ public class TaskContorller {
 			e.printStackTrace();
 		}
 		String stop = (String) session.getAttribute("stop");
-		System.out.println("读取日志 stop 标志"+stop);
+//		System.out.println("读取日志 stop 标志"+stop);
 		msg.put("flag", "success");
 		msg.put("data",result);
 		msg.put("lastTimeFileSize","0");

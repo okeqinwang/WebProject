@@ -24,6 +24,15 @@
       
     </select>
     
+        <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.eliteams.quick4j.web.model.User">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        
+        where id=#{id}
+      
+    </select>
+    
           
     <update id="updateByPrimaryKey"    parameterType="com.eliteams.quick4j.web.model.User">
      
