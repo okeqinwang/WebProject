@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
 --
--- Host: master    Database: quick4j
+-- Host: localhost    Database: quick4j
 -- ------------------------------------------------------
 -- Server version	5.5.40-0ubuntu0.14.04.1
 
@@ -70,7 +70,7 @@ CREATE TABLE `case_data` (
   `laynum` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `case_name` (`case_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `case_data` (
 
 LOCK TABLES `case_data` WRITE;
 /*!40000 ALTER TABLE `case_data` DISABLE KEYS */;
-INSERT INTO `case_data` VALUES (1,'smoke_lares_test1','RESEARCH CASE','','test1','Created for testing. ','2015-08-17','test1','2015-09-07 10:56:51',0,'2013011','2013011','25','00','N','grmc_grid','CN3GD_152X110',3,'cmaq','CB05','AE04','Y','Y','Y','Y','N','Y','ALL','Y','1','2012_GD_Inventory_v1.0','2012_GD_Inventory_v1.0','Lares_PRD_HK_20140309','grmc_spatial_2014','cmaq_cb05_soa_2005ck_05b_19mar2009.meic.prd','grmc_megan_2014','grmc_megan_2014','BaseLine','$SMK_HOME/data/met/mcip_prd/$DOMAIN','GRIDCRO2D_$JDATE.ncf','GRIDCRO3D_$JDATE.ncf','METCRO2D_$JDATE.ncf','METCRO3D_$JDATE.ncf','METDOT3D_$JDATE.ncf',0),(2,'smoke_lares_test1','RESEARCH CASE','','test1','Created for testing. ','2015-08-17','test1','2015-09-07 10:56:51',0,'2013011','2013011','25','00','N','grmc_grid','CN9GD_98X74',3,'cmaq','CB05','AE04','Y','Y','Y','Y','N','Y','ALL','Y','1','2012_GD_Inventory_v1.0','2012_GD_Inventory_v1.0','Lares_PRD_HK_20140309','grmc_spatial_2014','cmaq_cb05_soa_2005ck_05b_19mar2009.meic.prd','grmc_megan_2014','grmc_megan_2014','BaseLine','$SMK_HOME/data/met/mcip_prd/$DOMAIN','GRIDCRO2D_$JDATE.ncf','GRIDCRO3D_$JDATE.ncf','METCRO2D_$JDATE.ncf','METCRO3D_$JDATE.ncf','METDOT3D_$JDATE.ncf',0),(3,'smoke_lares_test1','RESEARCH CASE','','test1','Created for testing. ','2015-08-17','test1','2015-09-07 10:56:51',0,'2013011','2013011','25','00','N','grmc_grid','CN27GD_182X138',3,'cmaq','CB05','AE04','Y','Y','Y','Y','N','Y','ALL','Y','1','2012_GD_Inventory_v1.0','2012_GD_Inventory_v1.0','Lares_PRD_HK_20140309','grmc_spatial_2014','cmaq_cb05_soa_2005ck_05b_19mar2009.meic.prd','grmc_megan_2014','grmc_megan_2014','BaseLine','$SMK_HOME/data/met/mcip_prd/$DOMAIN','GRIDCRO2D_$JDATE.ncf','GRIDCRO3D_$JDATE.ncf','METCRO2D_$JDATE.ncf','METCRO3D_$JDATE.ncf','METDOT3D_$JDATE.ncf',0),(4,'case name',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'dddd',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'sss','3','1','sss','fadfa',NULL,NULL,NULL,NULL,'2015-11-03','0','0','0',NULL,NULL,'hello',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1','1','1','option1','option1','option1',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'sss','3','1','sss','fadfa',NULL,NULL,NULL,NULL,'0','0','0','0',NULL,NULL,'world',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1','1','1','option1','option1','option1',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'sss','3','1','sss','fadfa',NULL,NULL,NULL,NULL,'0','0','0','0',NULL,NULL,'java',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1','1','1','option1','option1','option1',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `case_data` VALUES (1,'smoke_lares_test1','RESEARCH CASE','','test1','Created for testing. ','2015-08-17','test1','2015-09-07 10:56:51',0,'2013011','2013011','25','00','N','grmc_grid','CN3GD_152X110',3,'cmaq','CB05','AE04','Y','Y','Y','Y','N','Y','ALL','Y','1','2012_GD_Inventory_v1.0','2012_GD_Inventory_v1.0','Lares_PRD_HK_20140309','grmc_spatial_2014','cmaq_cb05_soa_2005ck_05b_19mar2009.meic.prd','grmc_megan_2014','grmc_megan_2014','BaseLine','$SMK_HOME/data/met/mcip_prd/$DOMAIN','GRIDCRO2D_$JDATE.ncf','GRIDCRO3D_$JDATE.ncf','METCRO2D_$JDATE.ncf','METCRO3D_$JDATE.ncf','METDOT3D_$JDATE.ncf',0),(2,'smoke_lares_test1','RESEARCH CASE','','test1','Created for testing. ','2015-08-17','test1','2015-09-07 10:56:51',0,'2013011','2013011','25','00','N','grmc_grid','CN9GD_98X74',3,'cmaq','CB05','AE04','Y','Y','Y','Y','N','Y','ALL','Y','1','2012_GD_Inventory_v1.0','2012_GD_Inventory_v1.0','Lares_PRD_HK_20140309','grmc_spatial_2014','cmaq_cb05_soa_2005ck_05b_19mar2009.meic.prd','grmc_megan_2014','grmc_megan_2014','BaseLine','$SMK_HOME/data/met/mcip_prd/$DOMAIN','GRIDCRO2D_$JDATE.ncf','GRIDCRO3D_$JDATE.ncf','METCRO2D_$JDATE.ncf','METCRO3D_$JDATE.ncf','METDOT3D_$JDATE.ncf',0),(3,'smoke_lares_test1','RESEARCH CASE','','test1','Created for testing. ','2015-08-17','test1','2015-09-07 10:56:51',0,'2013011','2013011','25','00','N','grmc_grid','CN27GD_182X138',3,'cmaq','CB05','AE04','Y','Y','Y','Y','N','Y','ALL','Y','1','2012_GD_Inventory_v1.0','2012_GD_Inventory_v1.0','Lares_PRD_HK_20140309','grmc_spatial_2014','cmaq_cb05_soa_2005ck_05b_19mar2009.meic.prd','grmc_megan_2014','grmc_megan_2014','BaseLine','$SMK_HOME/data/met/mcip_prd/$DOMAIN','GRIDCRO2D_$JDATE.ncf','GRIDCRO3D_$JDATE.ncf','METCRO2D_$JDATE.ncf','METCRO3D_$JDATE.ncf','METDOT3D_$JDATE.ncf',0);
 /*!40000 ALTER TABLE `case_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,6 +173,7 @@ CREATE TABLE `user` (
   `password` char(64) DEFAULT NULL COMMENT '密码',
   `state` varchar(32) DEFAULT NULL COMMENT '状态',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `task_state` varchar(4) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -183,7 +184,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'starzou','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',NULL,'2014-07-17 12:59:08'),(2,'admin','admin',NULL,NULL);
+INSERT INTO `user` VALUES (1,'starzou','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',NULL,'2014-07-17 12:59:08','0'),(2,'admin','admin',NULL,NULL,'1');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,4 +222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-24 21:11:18
+-- Dump completed on 2015-11-25 14:51:51
