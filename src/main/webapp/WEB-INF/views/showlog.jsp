@@ -5,22 +5,36 @@ String path = request.getContextPath();
 String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
-<body>
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.css">
+ 
+<body onload="init()">
 
 
+<form action="checkStatus" method="get" id="myform">
 <div class="am-cf admin-main">
   <!-- content start -->
-  <div class="admin-content">
-    <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">运行日志</strong> / <small>Error Log</small></div>
-    </div>
-    <hr/>
+        <div class="am-cf am-padding">
+              <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">欢迎 ${username} 来到这个页面</strong> </div>
+        </div>
+        
+         <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+	       <li><a href="#"  onclick="checkStatus()" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br/>创建案例</a></li>
+	      <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br/>案例管理</a></li>
+	      <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>数据管理</a></li>
+	      <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>其他模块</a></li>
+	    </ul>
+    
      	<div class="am-g am-margin-top-sm">
      		<div class="am-u-md-12">
      		<div class="am-g error-log">
 		      <div id="log" class="am-u-sm-12 am-u-sm-centered">
 		        <pre id="logs" class="am-pre-scrollable">
-		        log
+		        
 		        </pre>
 		        </div>
 		      </div>
@@ -28,55 +42,26 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
      	</div>
 </div>
 <!-- content end -->
-</div>
+</form>
+
 
 <script type="text/javascript">
 function init(){
-	
+	console.log("init show log");
+	getlog();
 
 };
 
-function getlog(){
-	var stop = "0";
-	var lastTimeFileSize ="0";
-	var updater = {
-				poll : function() {
-					$.ajax({
-						url : "getLog",
-						type : "POST",
-						//contentType: "application/json; charset=utf-8",
-						data: {"lastTimeFileSize": lastTimeFileSize},
-						dataType : "json",
-						success : updater.onSuccess,
-						error : updater.onError
-					});
-				},
-				check: function (){
-					console.log("check");
-					//console.log("stop",stop);
-					if(stop == "0"){
-						console.log("go on  stop == 0..");
-					    updater.poll();
-					}
-				},
-				onSuccess : function(data, dataStatus) {
-					try {
-					stop = data.stop;
-					lastTimeFileSize =data.lastTimeFileSize;
-					$("#logs").append(data.data);
-					} catch (e) {
-						//console.log(e);
-						//updater.onError();
-						//return;
-					}
-					interval = setTimeout(updater.check,5000);
-				},
-				onError : function() {
-					console.log("获取日志失败");
-				}
-			};
-	    updater.poll();
-	}
+function checkStatus(){
+	//console.log("submit");
+	alert("submit");
+	$("#myform").submit();
+}
+
 </script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+
 </body>
 </html>

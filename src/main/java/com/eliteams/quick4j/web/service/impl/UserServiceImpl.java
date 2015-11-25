@@ -62,4 +62,10 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
         return list.get(0);
     }
 
+	@Override
+	public void updateTaskState(User user) {
+		// TODO Auto-generated method stub
+		userMapper.updateByPrimaryKey(user);
+	}
+
 }

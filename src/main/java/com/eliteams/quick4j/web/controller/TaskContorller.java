@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,26 +20,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eliteams.quick4j.core.util.RunShellUtil;
 import com.eliteams.quick4j.web.common.CommonInstance;
+import com.eliteams.quick4j.web.model.User;
+import com.eliteams.quick4j.web.service.UserService;
 
 @Controller
 public class TaskContorller {
 //	private static String result="no result";
 //	private static Map<String,Object> msg =  new HashMap<String, Object>();
-	private static String stop="1";
+//	private static String stop="1";
 //	private static long lastTimeFileSize=0;
 //	private static StringBuffer  sb = new StringBuffer();
+	
+	   @Resource
+	    private UserService userService;
 //	
 	@RequestMapping(value="checkStatus",method=RequestMethod.GET)
-	public String checkStatus(Model model ){
-		System.err.println("stop=="+stop);
-		if("1".equals(stop)){
-			//task have been stopped
-			System.out.println("已经停止");
-			return "redirect:/index";
-		}else{
-			model.addAttribute("stop", stop);
-			return "welcome";
+	public String checkStatus(Model model,HttpSession session ){
+		String status = (String) session.getAttribute("stop");
+		if(status !=null){
+			if( "1".equals(status)){
+				return "redirect:/index";
+			}else{
+				return "redirect:/showlog";
+			}
 		}
+		return "redirect:/index";
+	}
+	
+	@RequestMapping(value="showlog",method=RequestMethod.GET)
+	public String showLog(Model model ,HttpSession session){
+		System.out.println("进入日志展示页面");
+		return "showlog";
 	}
 	
 	@RequestMapping(value="commitTask",method=RequestMethod.POST)
@@ -46,14 +58,30 @@ public class TaskContorller {
 	public Map<String, Object> commitTask(Model model,HttpSession session,HttpServletRequest request){
 		System.out.println("提交任务...");
 		Map<String,Object> msg = new HashMap<String, Object>();
+		User user = (User) session.getAttribute("userInfo");
 		
-		if("0".equals(stop)){
-			msg.put("status", "success");
-			msg.put("result", "任务还在运行，请勿重复提交");
+		if(user==null){
+			System.err.println("session 丢失");
+			msg.put("stop", "1");
+			msg.put("status", "failed");
+			msg.put("msg", "session 丢失");
 			return msg;
 		}
-		stop="0";
-		session.setAttribute("stop", stop);
+		
+		String  havecommit = (String) session.getAttribute("havecommit");
+		if("1".equals(havecommit) ){
+			msg.put("status", "success");
+			msg.put("msg", "任务还在运行，请勿重复提交");
+			return msg;
+		}
+		
+		
+		session.setAttribute("havecommit", "1");
+		session.setAttribute("stop", "0");
+		
+		user.setTask_state("0");
+		userService.updateTaskState(user);
+		
 //		User authUserInfo =(User) session.getAttribute("userInfo");
 //		String filename =authUserInfo.getUsername();
 		String filename = CommonInstance.FILENAME;
@@ -67,18 +95,29 @@ public class TaskContorller {
 		List<String> cmds = new ArrayList<String>();
 		cmds.add("sh");
 		cmds.add("-c");
-		cmds.add("ping -c 10000  baidu.com  ");
+		cmds.add("ping -c 50  baidu.com  ");
 		String []  cmd = cmds.toArray(new String [cmds.size()]);
 		int status = RunShellUtil.executeCommand2File(cmd, file);
 //		model.addAttribute("result", "1");
 		if(status == 0){
 			//save to mysql
-			stop="1";
-			session.setAttribute("stop", stop);
+			user.setTask_state("1");
+			userService.updateTaskState(user);
+//			stop="1";
+			System.err.println("任务执行完成");
+			System.err.println("任务执行完成");
+			System.err.println("任务执行完成");
+			System.err.println("任务执行完成");
+			System.err.println("任务执行完成");
+			
+			session.setAttribute("stop", "1");
+			session.setAttribute("havecommit", "0");
+			msg.put("stop", "1");
 			msg.put("status", "success");
 			msg.put("msg", "恭喜，任务执行成功");
 		}else{
-			session.setAttribute("stop", stop);
+			session.setAttribute("stop", "1");
+			msg.put("stop", "1");
 			msg.put("status", "failed");
 			msg.put("msg", "oohh，任务提交异常");
 		}
@@ -92,7 +131,6 @@ public class TaskContorller {
 		String result = "no result";
 		String _start = request.getParameter("lastTimeFileSize");
 		Long start = Long.valueOf(_start);
-		System.out.println("获取到页面 传来的 lastTimeFileSize == "+start);
 //		User authUserInfo =(User) session.getAttribute("userInfo");
 //		String filename =authUserInfo.getUsername();
 		String filename = CommonInstance.FILENAME;
@@ -101,15 +139,16 @@ public class TaskContorller {
 		Map<String,Object> msg = new HashMap<String, Object>();
 		if(!logfile.exists()){
 			System.out.println("日志文件不存在...");
-			stop="1";
+			session.setAttribute("stop", "1");
 			msg.put("stop", "1");
 			msg.put("flag", "success");
 			msg.put("data","日志文件不存在");
+			msg.put("msg","日志文件不存在");
 			msg.put("lastTimeFileSize","-1");
 			return msg;
 		}
 		
-		System.out.println("准备读取日志  ...");
+//		System.out.println("准备读取日志  ...");
 		
 		try {
 			result = realtimeShowLog(logfile,start);
@@ -117,12 +156,11 @@ public class TaskContorller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		System.out.println("此次读取完成，读到文件位置为 "+lastTimeFileSize);
-	
+		String stop = (String) session.getAttribute("stop");
+		System.out.println("读取日志 stop 标志"+stop);
 		msg.put("flag", "success");
 		msg.put("data",result);
-		msg.put("lastTimeFileSize","-1");
+		msg.put("lastTimeFileSize","0");
 		msg.put("stop", stop);
 		return msg;
 	}
@@ -140,7 +178,6 @@ public class TaskContorller {
 	        randomFile.seek(start);   
 	        String tmp = "";   
 	        while( (tmp = randomFile.readLine())!= null) {   
-//	            System.out.println(new String(tmp.getBytes("utf-8")));   
 	            sb.append(tmp).append("<br>");
 	        }   
 //	        lastTimeFileSize = randomFile.length();   

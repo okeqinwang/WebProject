@@ -24,6 +24,9 @@ public class User implements Serializable {
     private String state;
 
     private Date createTime;
+    
+    private String task_state;
+    
 
     public User() {
 
@@ -74,9 +77,33 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password=" + password + ", state=" + state + ", createTime=" + createTime + "]";
-    }
+	public User(Long id, String username, String password, String state,
+			Date createTime, String task_state) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.state = state;
+		this.createTime = createTime;
+		this.task_state = task_state;
+	}
+
+	public String getTask_state() {
+		return task_state;
+	}
+
+	public void setTask_state(String task_state) {
+		this.task_state = task_state;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password="
+				+ password + ", state=" + state + ", createTime=" + createTime
+				+ ", task_state=" + task_state + "]";
+	}
+
+	
+	
 
 }

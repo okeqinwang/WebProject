@@ -72,9 +72,10 @@ public class UserController {
             subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
             // 验证成功在Session中保存用户信息
             final User authUserInfo = userService.selectByUsername(user.getUsername());
+            System.out.println("登录用户信息："+authUserInfo.toString());
             session.setAttribute("userInfo", authUserInfo);
             session.setAttribute("username", authUserInfo.getUsername());
-            session.setAttribute("task_status", "unfinish");
+            session.setAttribute("stop", authUserInfo.getTask_state());
             
         } catch (AuthenticationException e) {
             // 身份验证失败

@@ -10,6 +10,7 @@
         <pattern>/assets/**</pattern>
          <pattern>/login</pattern>
          <pattern>/welcome</pattern>
+          <pattern>/showlog</pattern>
        
     </excludes>
 </decorators>

@@ -91,8 +91,8 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
      	</div>
      	
      	<hr/>
-       <button type="button" onclick="commitTask()"   class="am-btn am-btn-primary am-btn-xs">运行</button>
-       <button type="button"  onclick="getlog()" class="am-btn am-btn-primary am-btn-xs">获取日志</button>
+       <button type="button"  id="runbutton" onclick="commitTask()"   class="am-btn am-btn-primary am-btn-xs">运行</button>
+       <button type="button"  id="querylogbutton" onclick="querylog()" class="am-btn am-btn-primary am-btn-xs">获取日志</button>
      </div>
 
     
@@ -126,7 +126,10 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 </div>
 
 <script type="text/javascript">
-
+function querylog(){
+	$("#querylogbutton").attr("disabled", true);
+	getlog();
+}
 
 function godone(){
 	
@@ -281,6 +284,7 @@ function init_tab2(){
 
 function commitTask(){
 	console.log("commit");
+	$("#runbutton").attr("disabled", true);
 	var data={};
 	$.ajax({
 		url:"commitTask",
@@ -288,7 +292,7 @@ function commitTask(){
 		data:data,
 		success:function (data,status){
 			if(status== "success"){
-				alert(data.result);
+				alert(data.msg);
 			}
 		},
 		error:function(){

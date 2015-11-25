@@ -16,7 +16,7 @@
 
 
 function getlog(){
-	console.log("begin to get log...");
+	//console.log("begin to get log...");
 	$("#logs").empty();
 	var stop = "0";
 	var lastTimeFileSize ="0";
@@ -33,16 +33,17 @@ function getlog(){
 					});
 				},
 				check: function (){
-					console.log("check");
-					console.log("stop",stop);
+					//console.log("check");
+					//console.log("stop",stop);
 					if(stop == "0"){
-						console.log("go on  stop == 0..");
+						//console.log("go on  stop == 0..");
 					    updater.poll();
 					}
 				},
 				onSuccess : function(data, dataStatus) {
 					try {
 					stop = data.stop;
+					console.log(stop);
 					lastTimeFileSize =data.lastTimeFileSize;
 					//console.log(data.data);
 					$("#logs").empty();
@@ -52,7 +53,7 @@ function getlog(){
 						//updater.onError();
 						//return;
 					}
-					interval = setTimeout(updater.check,0);
+					interval = setTimeout(updater.check,5000);
 				},
 				onError : function() {
 					console.log("获取日志失败");

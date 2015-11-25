@@ -7,10 +7,11 @@
         <result column="password" property="password" jdbcType="CHAR" />
         <result column="state" property="state" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+         <result column="task_state" property="task_state" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, username, password, state, create_time
+        id, username, password, state, create_time,task_state
     </sql>
     
         
@@ -22,6 +23,13 @@
         where username=#{username}
       
     </select>
+    
+          
+    <update id="updateByPrimaryKey"    parameterType="com.eliteams.quick4j.web.model.User">
+     
+     	update  user set task_state=#{task_state} where id=#{id}
+      
+    </update>
 
    
 
