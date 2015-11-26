@@ -66,6 +66,7 @@ public abstract class GenericServiceImpl<Model, PK> implements GenericService<Mo
 
     @Override
     public List<Model> selectList() {
+    	System.out.println("调用selectlist");
         return getDao().selectList();
     }
 }

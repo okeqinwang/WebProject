@@ -21,4 +21,7 @@ public   interface CaseDataService extends GenericService<CaseDataModel, Long> {
 	
 	public boolean saveCaseData(List<CaseDataModel> listcasemodel) ;
 	
+	public List<CaseDataModel> queryCaseByName(String casename);
+	
+	public CaseDataSessionModel caseData2SessionData(List<CaseDataModel> res);
 }

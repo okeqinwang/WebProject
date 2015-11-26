@@ -145,6 +145,38 @@ public class CaseDataServiceImpl extends GenericServiceImpl<CaseDataModel, Long>
 		}
 		return res;
 	}
+
+	@Override
+	public List<CaseDataModel> queryCaseByName(String casename) {
+		// TODO Auto-generated method stub
+		
+		return casedataMapper.queryCaseByName(casename);
+	}
+
+	//将数据库中查询出的casemodel转变为session中的实体CaseDataSessionModel
+	@Override
+	public CaseDataSessionModel caseData2SessionData(List<CaseDataModel> res) {
+		// TODO Auto-generated method stub
+		CaseDataSessionModel sm = new CaseDataSessionModel();
+		CaseDataModel m = res.get(0);
+		
+		BasicInfoModel basic = new BasicInfoModel();
+		basic.setBasic_casename(m.getCase_name());
+		basic.setBasic_casetype(m.getCase_type());
+		basic.setBasic_content(m.getDescription());
+		basic.setBasic_createname(m.getCreator());
+
+		
+		//这里添加其他的值
+		SceneModel scene = new SceneModel();
+		scene.setSn_pf_area(m.getRun_ar());
+//		scene.setSn_pf_scene(m.get);
+		sm.setBasic(basic);
+		sm.setScene(scene);
+		////这里添加其他的值。。。。。
+		
+		return sm;
+	}
 	
 	
 	

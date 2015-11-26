@@ -14,7 +14,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 
 
 
-<body onload="init()" >
+<body >
 
 <form action="checkStatus" method="get" id="myform">
 <div class="am-cf admin-main">
@@ -34,16 +34,17 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	    
 	    
 	    <div id="caselist"  class="am-g am-margin am-padding am-text-center display:none">
-	       <table  id="caselist_table"     class=" am-table am-table-striped am-table-hover table-main">
+	       <table  id="table_ids"     class=" am-table am-table-striped am-table-hover table-main">
 				    <thead>
 				        <tr>
-				         
-				            <th>案例名称</th>
-				            <th>案例类别</th>
-				            <th>创建人</th>
-				            <th>创建时间</th>
-				             <th>操作</th>
-				             
+				            <th>模拟区域</th>
+				            <th>点源程序</th>
+				            <th>面源程序</th>
+				            <th>天然源程序</th>
+				            <th>模拟区域</th>
+				            <th>点源程序</th>
+				            <th>面源程序</th>
+				            <th>天然源程序</th>
 				        </tr>
 				    </thead>
 			</table>
@@ -63,7 +64,24 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 function init(){
 	console.log("init welcome page");
 	//add();
-	binddata();
+	getcasedata();
+}
+
+
+function getcasedata(){
+	$.ajax({
+		"url":"getCaseData",
+		"type":"get",
+		"success":function(data,status){
+			if(status =="success"){
+				console.log(data);
+			}
+		},
+		"error":function(){
+			console.log("bad request");
+		}
+		
+	});
 }
 
 function checkStatus(){
@@ -71,72 +89,6 @@ function checkStatus(){
 	alert("submit");
 	$("#myform").submit();
 }
-
-
-function queryCaseByName(casename){
-	console.log(casename);
-	$.ajax({
-		"url":"queryCaseByName",
-		"type":"get",
-		"data":{"casename":casename},
-		"success":function(data,status){
-			if(status =="success"){
-				console.log(data);
-				// redirect index page later
-				//window.location.href="index";
-				if(data.flag == "0"){
-					alter(data.msg);
-				}else{
-					window.location.href="index";
-				}
-			}
-		},
-		"error":function(){
-			console.log("bad request");
-		}
-	});
-	
-}
-
-function binddata(){
-	$('#caselist_table').DataTable({
-	   "columns": [
-     	   	   
-     	   	        { "data": "case_name" },
-     	   	        { "data": "case_type" },
-     	   	        { "data": "creator" },
-     	   	        { "data": "created_time" }
-     	   	      
-     	   	    ],
-   	 "paging":   false,
-   	  "ordering": false,
-   	  "info":     false,
-   	  "searching":false,
-   	  "ajax": {
-   		     "url": "getCaseData",
-             //"url": "assets/data/data.json",
-             "dataType": "json"
-         },
-         "initComplete":function(){
-        	 
-         },
-   	  "columnDefs":[
-   	   	  {
-             "targets": 4,
-             "render": function(data, type, row) {
-            	 
-            	 
-            	 var s = "<input type=\"button\" onclick=\"queryCaseByName(\'";
-            	 s=s+row.case_name;
-            	 s=s+"\')\"   value=\"查看案例\"/>";
-            	 return s;
-                    //return  "<input type='button' onclick='queryCaseByName("+row.id+")'   value='查看案例'/>";
-   	   	  		}
-   	     }
-   	  ]
-   });
-}
-
 
 </script>
 

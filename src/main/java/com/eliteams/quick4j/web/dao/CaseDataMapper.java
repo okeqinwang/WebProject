@@ -23,5 +23,7 @@ public interface CaseDataMapper extends GenericDao<CaseDataModel, Long> {
 
     int updateByPrimaryKey(CaseDataModel record);
     
+    List<CaseDataModel> queryCaseByName(String casename);
+    
   
 }

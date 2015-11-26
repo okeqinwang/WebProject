@@ -5,8 +5,62 @@
 <!--这块等于dao接口的实现 namespace必须和接口的类路径一样 -->
 <mapper namespace="com.eliteams.quick4j.web.dao.CaseDataMapper">
 	<!-- findByName 和 inserUser必须和接口中的方法名一样 返回一个User 就是刚才的别名 如果不弄别名要连类路径一起写 -->
-	<select id="selectList"  resultType="com.eliteams.quick4j.web.model.CaseDataModel">
-		select * from case_data 
+	
+	<resultMap type="com.eliteams.quick4j.web.model.CaseDataModel" id="CaseDataMap">  
+        <result column="id" property="id" /> 
+		<result column="case_name" property="case_name" /> 
+		<result column="case_type" property="case_type" /> 
+		<result column="abbreviation" property="abbreviation" /> 
+		<result column="creator" property="creator" /> 
+		<result column="description" property="description" /> 
+		<result column="created_time" property="created_time" /> 
+		<result column="lastmodifiedby" property="lastmodifiedby" /> 
+		<result column="lastmodifiedat" property="lastmodifiedat" /> 
+		<result column="base_year" property="base_year" /> 
+		<result column="st_date" property="st_date" /> 
+		<result column="ed_date" property="ed_date" /> 
+		<result column="episode" property="episode" /> 
+		<result column="st_time" property="st_time" /> 
+		<result column="run_status" property="run_status" /> 
+		<result column="domain_group" property="domain_group" /> 
+		<result column="domain" property="domain" /> 
+		<result column="domain_num" property="domain_num" /> 
+		<result column="aqm_type" property="aqm_type" /> 
+		<result column="sp_type" property="sp_type" /> 
+		<result column="ae_type" property="ae_type" /> 
+		<result column="run_ar" property="run_ar" /> 
+		<result column="run_pt" property="run_pt" /> 
+		<result column="run_megan" property="run_megan" /> 
+		<result column="run_superregion" property="run_superregion" /> 
+		<result column="run_ar_layer" property="run_ar_layer" /> 
+		<result column="run_pt_layer" property="run_pt_layer" /> 
+		<result column="run_src" property="run_src" /> 
+		<result column="merge_all" property="merge_all" /> 
+		<result column="itm_status" property="itm_status" /> 
+		<result column="arinv_inventory" property="arinv_inventory" /> 
+		<result column="ptinv_inventory" property="ptinv_inventory" /> 
+		<result column="temporal_ref" property="temporal_ref" /> 
+		<result column="spatial_ref" property="spatial_ref" /> 
+		<result column="chemical_ref" property="chemical_ref" /> 
+		<result column="megan_eflai" property="megan_eflai" /> 
+		<result column="megan_pftf" property="megan_pftf" /> 
+		<result column="scenario_file" property="scenario_file" /> 
+		<result column="metpath" property="metpath" /> 
+		<result column="grid_cro_2d" property="grid_cro_2d" /> 
+		<result column="grid_cro_3d" property="grid_cro_3d" /> 
+		<result column="met_cro_2d" property="met_cro_2d" /> 
+		<result column="met_cro_3d" property="met_cro_3d" /> 
+		<result column="met_dot_3d" property="met_dot_3d" /> 
+		<result column="laynum" property="laynum" />  
+    </resultMap>  
+	
+	
+	<select id="selectList"  resultMap="CaseDataMap">
+		select *  from case_data
+	</select>
+	
+	<select id="queryCaseByName"   parameterType="String" resultMap="CaseDataMap">
+		select *  from case_data where case_name=#{casename}
 	</select>
 
 	<insert id="insert" parameterType="com.eliteams.quick4j.web.model.CaseDataModel">
